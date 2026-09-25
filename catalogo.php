@@ -52,25 +52,43 @@ $productos = array_values(array_filter($items, fn($i) => $i['tipo'] === 'product
 
 require __DIR__ . '/includes/header.php';
 
-function pcv_card($item) {
-    $badge = $item['tipo'] === 'servicio' ? 'badge-tipo' : 'badge-prod';
-    $label = $item['tipo'] === 'servicio' ? 'Servicio' : 'Producto';
+function pcv_card($item, $large = false) {
+    $isService = $item['tipo'] === 'servicio';
+    $badge = $isService ? 'badge-tipo' : 'badge-prod';
+    $label = $isService ? 'Servicio' : 'Producto';
     $url = pcv_url('ficha.php?slug=' . urlencode($item['slug']));
     $img = pcv_img_producto($item['imagen_principal']);
-    echo '<div class="col-md-6 col-lg-4"><a class="text-dark" href="'.pcv_esc($url).'"><div class="card card-service card-product">';
-    echo '<img class="card-img-top" src="'.pcv_esc($img).'" alt="'.pcv_esc($item['nombre']).'">';
-    echo '<div class="card-body"><span class="badge '.$badge.' mb-2">'.$label.'</span>';
-    echo '<h3 class="h6 mb-1">'.pcv_esc($item['nombre']).'</h3>';
-    echo '<p class="small text-muted mb-0">'.pcv_esc($item['clasificacion']).($item['subtipo']?' · '.pcv_esc($item['subtipo']):'').'</p>';
-    echo '</div></div></a></div>';
+    $col = $large ? 'col-md-6 col-xl-4' : 'col-sm-6 col-lg-4 col-xl-3';
+    $cardClass = $large ? 'pcv-card pcv-card-service' : 'pcv-card';
+    $cat = pcv_esc($item['clasificacion']) . ($item['subtipo'] ? ' · ' . pcv_esc($item['subtipo']) : '');
+    echo '<div class="'.$col.'">';
+    echo '<a class="pcv-card-link" href="'.pcv_esc($url).'">';
+    echo '<article class="'.$cardClass.'">';
+    echo '<div class="pcv-card-media"><span class="pcv-card-badge '.$badge.'">'.$label.'</span>';
+    echo '<img src="'.pcv_esc($img).'" alt="'.pcv_esc($item['nombre']).'" loading="lazy"></div>';
+    echo '<div class="pcv-card-body">';
+    echo '<div class="pcv-card-cat">'.$cat.'</div>';
+    echo '<h3 class="pcv-card-title">'.pcv_esc($item['nombre']).'</h3>';
+    if (!empty($item['resumen'])) {
+        echo '<p class="pcv-card-excerpt">'.pcv_esc($item['resumen']).'</p>';
+    }
+    echo '</div></article></a></div>';
 }
 ?>
-<section class="py-4 bg-light border-bottom">
+<section class="page-banner">
   <div class="container">
-    <h1 class="h3 section-title mb-3">Catálogo</h1>
-    <form class="row g-2 mb-3" method="get">
-      <div class="col-md-6"><input type="search" name="q" value="<?= pcv_esc($q) ?>" class="form-control" placeholder="Buscar…"></div>
-      <div class="col-auto"><button class="btn btn-pcv btn-accent">Buscar</button></div>
+    <h1>Catálogo</h1>
+    <p>Servicios y productos industriales. Solicita cotización personalizada — sin precios públicos.</p>
+  </div>
+</section>
+
+<section class="catalog-toolbar">
+  <div class="container">
+    <form class="catalog-search mb-3" method="get">
+      <?php if ($clasSlug !== ''): ?><input type="hidden" name="clasificacion" value="<?= pcv_esc($clasSlug) ?>"><?php endif; ?>
+      <?php if ($subSlug !== ''): ?><input type="hidden" name="subtipo" value="<?= pcv_esc($subSlug) ?>"><?php endif; ?>
+      <input type="search" name="q" value="<?= pcv_esc($q) ?>" class="form-control" placeholder="Buscar servicio o producto…">
+      <button class="btn btn-navy" type="submit"><i class="fas fa-search me-1"></i> Buscar</button>
     </form>
     <div>
       <a class="filter-chip <?= $clasSlug===''?'active':'' ?>" href="<?= pcv_url('catalogo.php') ?>">Todas</a>
@@ -88,29 +106,32 @@ function pcv_card($item) {
   </div>
 </section>
 
-<section class="py-5">
+<section class="section pt-4">
   <div class="container">
-    <h2 class="h4 section-title mb-3">Servicios</h2>
+    <h2 class="catalog-block-title section-title">Servicios</h2>
     <div class="row g-4 mb-5">
-      <?php if (!$servicios): ?><p class="text-muted">No hay servicios con este filtro.</p><?php endif; ?>
-      <?php foreach ($servicios as $it) { pcv_card($it); } ?>
-    </div>
-    <h2 class="h4 section-title mb-3">Productos</h2>
-    <div class="row g-4">
-      <?php if (!$productos): ?><p class="text-muted">No hay productos con este filtro.</p><?php endif; ?>
-      <?php foreach ($productos as $it) { pcv_card($it); } ?>
+      <?php if (!$servicios): ?><div class="col-12"><p class="text-muted mb-0">No hay servicios con este filtro.</p></div><?php endif; ?>
+      <?php foreach ($servicios as $it) { pcv_card($it, true); } ?>
     </div>
 
-    <div class="mt-5 pt-4 border-top" id="cotizar">
-      <h2 class="h4 section-title">¿Necesitas una cotización?</h2>
-      <p class="text-muted">No publicamos precios. Cuéntanos qué necesitas.</p>
-      <form id="formCotizar" action="<?= pcv_url('cotizar.php') ?>" method="post" class="row g-3">
-        <div class="col-md-4"><input required name="nombre" class="form-control" placeholder="Nombre *"></div>
-        <div class="col-md-4"><input required name="telefono" id="cotTel" class="form-control" placeholder="Teléfono *"></div>
-        <div class="col-md-4"><input type="email" name="correo" class="form-control" placeholder="Correo"></div>
-        <div class="col-12"><textarea name="mensaje" class="form-control" rows="2" placeholder="Mensaje"></textarea></div>
-        <div class="col-12"><button class="btn btn-green">Enviar</button></div>
-      </form>
+    <h2 class="catalog-block-title section-title">Productos</h2>
+    <div class="row g-4">
+      <?php if (!$productos): ?><div class="col-12"><p class="text-muted mb-0">No hay productos con este filtro.</p></div><?php endif; ?>
+      <?php foreach ($productos as $it) { pcv_card($it, false); } ?>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8">
+        <h2>¿Necesitas una cotización?</h2>
+        <p>Cuéntanos qué pieza, proceso o luminaria necesitas. Te respondemos a la medida.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="<?= pcv_url('cotizar.php') ?>" class="btn btn-cta btn-lg">Ir a cotizar <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </div>
 </section>
