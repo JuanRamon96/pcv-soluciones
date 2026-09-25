@@ -1,0 +1,266 @@
+#colorlib-aside #colorlib-logo { 
+	margin-bottom: 30px;
+}
+
+span.error{
+	color: #ff5d5d !important;
+	font-size: 12px;
+}
+
+.oculto{
+	display: none;
+}
+
+.swal2-container {
+	z-index: 99999 !important;
+}
+
+.carga {
+  position: fixed;
+  min-width: 100%;
+  min-height: 100vh;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.8);
+  /*display: none;*/
+}
+
+body::-webkit-scrollbar {
+  width: 16px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #EEE;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #666;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid #EEE;  /* creates padding around scroll thumb */
+}
+
+.alert{
+	font-size: 14px;
+	border-radius: 0;
+	border-left-width: 30px;
+}
+
+button.botones-imagenes {
+  position: absolute;
+  right: 40%;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 13px !important;
+}
+
+button.botones-imagenes i {
+  margin: -10px;
+}
+
+input.fechaYear{
+	font-size: 22px;
+	text-align: center;
+}
+
+.tab-pane{
+	padding: 30px 20px;
+}
+
+.btn-sm{
+	padding: 4px 8px;
+}
+
+.tablaReportes > :not(caption) > * > * {
+	padding: 2px;
+}
+
+#tablaEquiposJugadores tbody tr {
+  cursor: pointer;
+}
+
+#tablaEquiposPartidos tbody tr {
+  cursor: pointer;
+}
+
+#tablaCamposPartidos tbody tr {
+  cursor: pointer;
+}
+
+#DivVerArticuloBlog img{
+  max-width: 100%;
+}
+
+#tablaJugadoresPartido tbody tr {
+  cursor: pointer;
+}
+
+.bracket {
+  padding: 40px;
+  margin: 5px;
+}
+
+.bracket {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.match {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  max-width: 240px;
+  margin: 12px 24px 12px 0;
+}
+
+.match .match-top {
+  border-radius: 2px 2px 0 0;
+}
+
+.match .match-bottom {
+  border-radius: 0 0 2px 2px;
+}
+
+.match .team {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.match {
+  border-radius: 5px;
+  border: 1px solid #CCC;
+  box-shadow: -8px 12px 18px 0 rgba(25, 42, 70, 0.13);
+  background: white !important;
+}
+
+.team {
+  padding: 5px 0px;
+}
+
+.match .team span {
+  padding-left: 8px;
+}
+
+.match .team span:last-child {
+  padding-right: 8px;
+}
+
+.match .team .score {
+  margin-left: auto;
+}
+
+.match .team:first-child {
+  margin-bottom: -1px;
+}
+
+.match-lines {
+  display: block;
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  margin-top: 0px;
+  right: -1px;
+}
+
+.match-lines .line {
+  background: #AAA;
+  position: absolute;
+}
+
+.match-lines .line.one {
+  height: 1px;
+  width: 12px;
+}
+
+.match-lines .line.two {
+  height: 55px;
+  width: 1px;
+  left: 12px;
+}
+
+.match-lines.alt {
+  left: -12px;
+}
+
+.match:nth-child(even) .match-lines .line.two {
+  transform: translate(0, -100%);
+}
+
+.column:first-child .match-lines.alt {
+  display: none;
+}
+
+.column:last-child .match-lines {
+  display: none;
+}
+
+.column:last-child .match-lines.alt {
+  display: block;
+}
+
+.column:nth-child(2) .match-lines .line.two {
+  height: 110px;
+}
+
+.column:nth-child(3) .match-lines .line.two {
+  height: 215px;
+}
+
+.column:nth-child(4) .match-lines .line.two {
+  height: 262px;
+}
+
+.column:nth-child(5) .match-lines .line.two {
+  height: 349px;
+}
+
+.disable-image .image,
+.disable-seed .seed,
+.disable-name .name,
+.disable-score .score {
+  display: none !important;
+}
+
+.disable-borders {
+  border-width: 0px !important;
+}
+
+.disable-borders .team {
+  border-width: 0px !important;
+}
+
+.disable-seperator .match-top {
+  border-bottom: 0px !important;
+}
+
+.disable-seperator .match-bottom {
+  border-top: 0px !important;
+}
+
+.disable-seperator .team:first-child {
+  margin-bottom: 0px;
+}
+
+.botonesEliminatorias {
+  position: absolute;
+  bottom: -20px;
+  right: 18px;
+}
+
+.fechaParEli {
+  position: absolute;
+  bottom: -15px;
+  left: 5px;
+  font-size: 11px;
+}

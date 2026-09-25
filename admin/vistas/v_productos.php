@@ -1,79 +1,137 @@
-<div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
-  <div class="d-flex gap-2">
-    <input type="search" id="filtroProductos" class="form-control form-control-sm" placeholder="Buscar…">
-    <select id="filtroTipo" class="form-select form-select-sm" style="width:auto">
-      <option value="">Todos</option>
-      <option value="servicio">Servicios</option>
-      <option value="producto">Productos</option>
-    </select>
+<div class="row" style="margin-bottom: 30px; margin-top: -50px;">
+  <div class="col-12 text-right">
+    <button type="button" class="btn btn-sm btn-outline-primary cargarVista" carga="v_productos" titulo="Productos / Servicios"><i class="fas fa-rotate-right"></i></button>
   </div>
-  <button type="button" class="btn btn-sm btn-pcv" id="bAgregarProducto">Agregar <i class="fas fa-plus"></i></button>
-</div>
-<div class="table-responsive card p-2">
-  <table class="table table-sm table-hover align-middle mb-0" id="tablaProductos">
-    <thead><tr><th></th><th>Tipo</th><th>Nombre</th><th>Clasificación</th><th>Subtipo</th><th>Estado</th><th></th></tr></thead>
-    <tbody id="tbodyProductos"></tbody>
-  </table>
 </div>
 
-<div class="modal fade" id="modalProducto" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <form class="modal-content" id="formProducto" enctype="multipart/form-data">
-      <div class="modal-header"><h5 class="modal-title">Producto / Servicio</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">
-        <input type="hidden" name="id" id="prodId">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label class="form-label">Tipo</label>
-            <select name="tipo" id="prodTipo" class="form-select" required>
-              <option value="servicio">Servicio</option>
-              <option value="producto">Producto</option>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-md-4 mb-2 mb-md-0">
+            <input type="search" id="filtroProductos" class="form-control form-control-sm" placeholder="Buscar…">
+          </div>
+          <div class="col-md-3 mb-2 mb-md-0">
+            <select id="filtroTipo" class="form-control form-control-sm">
+              <option value="">Todos</option>
+              <option value="servicio">Servicios</option>
+              <option value="producto">Productos</option>
             </select>
           </div>
-          <div class="col-md-4">
-            <label class="form-label">Clasificación</label>
-            <select name="clasificacion_id" id="prodClas" class="form-select" required>
-#opcionesClasificacion#
-</select>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Subtipo</label>
-            <select name="subtipo_id" id="prodSub" class="form-select">
-#opcionesSubtipo#
-</select>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Nombre</label>
-            <input type="text" name="nombre" id="prodNombre" class="form-control" required>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Resumen</label>
-            <textarea name="resumen" id="prodResumen" class="form-control" rows="2"></textarea>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Descripción</label>
-            <textarea name="descripcion" id="prodDesc" class="form-control" rows="4"></textarea>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Imagen principal</label>
-            <input type="file" name="imagen" id="prodImagen" class="form-control" accept="image/*">
-          </div>
-          <div class="col-md-2">
-            <label class="form-label">Orden</label>
-            <input type="number" name="orden" id="prodOrden" class="form-control" value="0">
-          </div>
-          <div class="col-md-4 d-flex align-items-end gap-3">
-            <div class="form-check"><input class="form-check-input" type="checkbox" name="destacado" id="prodDestacado"><label class="form-check-label" for="prodDestacado">Destacado</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" name="activo" id="prodActivo" checked><label class="form-check-label" for="prodActivo">Activo</label></div>
+          <div class="col-md-5 text-md-right">
+            #bAgregar#
           </div>
         </div>
-        <p class="small text-muted mt-3 mb-0">Regla de negocio: no se capturan ni muestran precios.</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-pcv">Guardar</button>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered text-center" id="tablaProductos" width="100%">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Tipo</th>
+                  <th>Nombre</th>
+                  <th>Clasificación</th>
+                  <th>Subtipo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyProductos"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>
-<script src="vistas/assets/js/productos.js"></script>
+
+<div class="modal text-left" id="modalProducto" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title white">Producto / Servicio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+      </div>
+      <form id="formProducto" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" name="id" id="prodId">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Tipo</label>
+                <select name="tipo" id="prodTipo" class="form-control" required>
+                  <option value="servicio">Servicio</option>
+                  <option value="producto">Producto</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Clasificación</label>
+                <select name="clasificacion_id" id="prodClas" class="form-control" required>
+#opcionesClasificacion#
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Subtipo</label>
+                <select name="subtipo_id" id="prodSub" class="form-control">
+#opcionesSubtipo#
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" name="nombre" id="prodNombre" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Resumen</label>
+                <textarea name="resumen" id="prodResumen" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Descripción</label>
+                <textarea name="descripcion" id="prodDesc" class="form-control" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Imagen principal</label>
+                <input type="file" name="imagen" id="prodImagen" class="form-control" accept="image/*">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Orden</label>
+                <input type="number" name="orden" id="prodOrden" class="form-control" value="0">
+              </div>
+            </div>
+            <div class="col-md-4 d-flex align-items-center">
+              <div class="form-check mr-3">
+                <input class="form-check-input" type="checkbox" name="destacado" id="prodDestacado" value="1">
+                <label class="form-check-label" for="prodDestacado">Destacado</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="activo" id="prodActivo" value="1" checked>
+                <label class="form-check-label" for="prodActivo">Activo</label>
+              </div>
+            </div>
+          </div>
+          <p class="small text-muted mb-0">Regla de negocio: no se capturan ni muestran precios.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light-secondary" data-dismiss="modal">Cerrar <i class="fas fa-times"></i></button>
+          <button type="submit" class="btn btn-primary ml-1" id="bGuardarProducto">Guardar <i class="fas fa-save"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
