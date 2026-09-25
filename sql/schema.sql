@@ -50,7 +50,7 @@ CREATE TABLE productos (
   clasificacion_id INT UNSIGNED NOT NULL,
   subtipo_id INT UNSIGNED DEFAULT NULL,
   nombre VARCHAR(200) NOT NULL,
-  slug VARCHAR(220) NOT NULL UNIQUE,
+  slug VARCHAR(191) NOT NULL UNIQUE,
   resumen TEXT,
   descripcion MEDIUMTEXT,
   imagen_principal VARCHAR(255) DEFAULT NULL,
