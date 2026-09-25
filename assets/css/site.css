@@ -1,0 +1,71 @@
+:root{
+  --navy:#08295A; --green:#0A3D0A; --accent:#104FA0;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1a1a1a;background:#fff}
+a{color:var(--accent);text-decoration:none}
+.site-header .navbar{background:var(--navy)}
+.brand-logo{height:48px;width:auto;max-width:160px;object-fit:contain}
+.btn-accent{background:var(--accent);color:#fff;border:none}
+.btn-accent:hover{background:#0d3f82;color:#fff}
+.btn-green{background:var(--green);color:#fff;border:none}
+.btn-green:hover{background:#072807;color:#fff}
+
+/* Hero industrial */
+.hero{
+  position:relative; overflow:hidden; color:#fff;
+  background:linear-gradient(135deg, var(--navy) 0%, #0a1f3d 45%, var(--green) 100%);
+  min-height:78vh; display:flex; align-items:center;
+}
+.hero-inner{position:relative;z-index:2}
+.hero h1{font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.hero-anim{position:absolute;inset:0;z-index:1;opacity:.35;pointer-events:none}
+.gear{transform-origin:center;animation:spin 18s linear infinite}
+.gear.slow{animation-duration:28s;animation-direction:reverse}
+.laser-line{stroke-dasharray:8 10;animation:dash 2.5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dash{to{stroke-dashoffset:-80}}
+.pulse-dot{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+.section-title{font-weight:700;color:var(--navy)}
+.card-service{
+  border:0;border-radius:16px;overflow:hidden;
+  box-shadow:0 12px 32px rgba(8,41,90,.1);
+  transition:transform .2s, box-shadow .2s; height:100%;
+}
+.card-service:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(8,41,90,.16)}
+.card-service .card-img-top{height:200px;object-fit:cover}
+.card-product .card-img-top{height:160px;object-fit:cover}
+.badge-tipo{background:var(--green)}
+.badge-prod{background:var(--accent)}
+.filter-chip{
+  border:1px solid #d0d7e2;border-radius:999px;padding:.35rem .9rem;
+  background:#fff;color:var(--navy);display:inline-block;margin:.25rem;
+}
+.filter-chip.active,.filter-chip:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+.site-footer{background:var(--navy);color:#fff}
+.footer-logo{height:52px;max-width:180px;object-fit:contain}
+.site-footer a{color:#fff}
+
+.whatsapp-float{
+  position:fixed;right:18px;bottom:18px;z-index:1050;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.75rem;box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.whatsapp-float:hover{color:#fff;transform:scale(1.05)}
+
+.ficha-main{border-radius:16px;overflow:hidden;background:#0b1220}
+.ficha-main img{width:100%;max-height:420px;object-fit:contain;background:#0b1220}
+.gallery-thumb{width:72px;height:56px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.75}
+.gallery-thumb:hover,.gallery-thumb.active{opacity:1;outline:2px solid var(--accent)}
+
+.values-card{border-left:4px solid var(--accent);background:#f7f9fc;border-radius:0 12px 12px 0}
+.organigrama-wrap img{max-width:100%;height:auto;border-radius:12px}
+
+@media(max-width:576px){
+  .hero{min-height:70vh}
+  .brand-logo{height:40px}
+}

@@ -1,0 +1,22 @@
+:root{
+  --pcv-navy:#08295A;
+  --pcv-green:#0A3D0A;
+  --pcv-accent:#104FA0;
+}
+body{background:#f4f6f9;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.btn-pcv{background:var(--pcv-navy);color:#fff;border:none}
+.btn-pcv:hover{background:var(--pcv-accent);color:#fff}
+.login-body{background:linear-gradient(135deg,var(--pcv-navy),var(--pcv-green))}
+.login-card{width:100%;max-width:420px;border-radius:16px}
+.login-logo{max-width:180px;height:auto}
+.sidebar{width:260px;min-height:100vh;background:var(--pcv-navy);color:#fff;flex-shrink:0}
+.sidebar .nav-link{color:rgba(255,255,255,.85);border-radius:8px;margin:2px 0}
+.sidebar .nav-link:hover,.sidebar .nav-link.active{background:rgba(255,255,255,.12);color:#fff}
+.sidebar-logo{max-width:140px;height:auto}
+.topbar{height:56px;background:var(--pcv-navy);color:#fff}
+.stat-card{border:0;border-radius:14px;box-shadow:0 8px 24px rgba(8,41,90,.08)}
+#wrapper.sidebar-collapsed .sidebar{margin-left:-260px}
+@media(max-width:991px){
+  .sidebar{position:fixed;z-index:1040;left:0;top:0;transform:translateX(-100%);transition:.2s}
+  .sidebar.open{transform:translateX(0)}
+}
