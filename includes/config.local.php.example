@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copia este archivo a config.local.php y ajusta.
+ * Se carga ANTES de los defaults de config.php (solo define si no existen).
+ *
+ * XAMPP (C:\xampp\htdocs\pcv-soluciones → http://localhost/pcv-soluciones/):
+ */
+define('PCV_BASE', '/pcv-soluciones');
+define('DB_HOST', '127.0.0.1');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'pcv_soluciones');
+define('DB_PORT', 3306);
+
+/**
+ * Desarrollo con php -S en la raíz del proyecto (sin subcarpeta):
+ *
+ * define('PCV_BASE', '');
+ * define('DB_USER', 'pcv');
+ * define('DB_PASS', 'pcv_local');
+ */

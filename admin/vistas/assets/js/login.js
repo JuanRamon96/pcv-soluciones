@@ -1,15 +1,18 @@
 jQuery(document).ready(function ($) {
 	$('#formLogin').validate({
 		rules: {
-			usuario: { required: true },
+			correo: { required: true, email: true },
 			pass: { required: true }
 		},
 		messages: {
-			usuario: { required: 'El usuario es requerido' },
+			correo: {
+				required: 'El correo es requerido',
+				email: 'Ingresa un correo válido'
+			},
 			pass: { required: 'La contraseña es requerida' }
 		},
 		submitHandler: function () {
-			var data = 'accion=login&usuario=' + encodeURIComponent($.trim($('#usuario').val())) +
+			var data = 'accion=login&correo=' + encodeURIComponent($.trim($('#correo').val())) +
 				'&contrasena=' + encodeURIComponent($('#pass').val());
 
 			$.ajax({
@@ -37,7 +40,7 @@ jQuery(document).ready(function ($) {
 				} else if ($.trim(res) === '0') {
 					setTimeout(function () {
 						$('#mensaAV').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<i class="fas fa-exclamation-triangle"></i> <strong>Usuario o contraseña incorrectos.</strong>
+							<i class="fas fa-exclamation-triangle"></i> <strong>Correo o contraseña incorrectos.</strong>
 						</div>`);
 					}, 600);
 				} else {

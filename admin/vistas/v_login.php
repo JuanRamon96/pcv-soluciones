@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PCV Soluciones | Login</title>
-  <link rel="icon" href="/admin/vistas/assets/images/logos/icon.png" type="image/x-icon">
+  <link rel="icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/icon.png" type="image/x-icon">
   
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/vistas/assets/fonts/icomoon/style.css">
-  <link rel="stylesheet" href="/admin/vistas/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/admin/vistas/assets/plugins/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="/admin/vistas/assets/css/style.css">
+  <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/style.css">
 
 </head>
 
 <body class="">
   <div class="d-lg-flex half">
     <div class="bg order-1 order-md-2">
-      <img src="/admin/vistas/assets/images/logos/logo.png" width="30%" class="img-logo">
+      <img src="#PCV_ADMIN_BASE#/vistas/assets/images/logos/logo.png" width="30%" class="img-logo">
     </div>
     <div class="contents order-2 order-md-1">
 
@@ -26,18 +26,18 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-8">
             <h3><strong>Bienvenido</strong> de regreso</h3>
-            <p class="mb-4">PCV Soluciones Industriales — ingresa tu usuario y contraseña.</p>
+            <p class="mb-4">PCV Soluciones Industriales — ingresa tu correo y contraseña.</p>
             <div id="mensaAV">
               
             </div>
             <form id="formLogin">
               <div class="form-group first">
-                <label for="usuario">Usuario</label>
-                <input type="text" class="form-control" placeholder="Usuario" id="usuario" name="usuario" autocomplete="username">
+                <label for="correo">Correo</label>
+                <input type="email" class="form-control" placeholder="Correo" id="correo" name="correo" autocomplete="username">
               </div>
               <div class="form-group last mb-3">
                 <label for="password">Contraseña</label>
-                <input type="password" class="form-control" placeholder="Contraseña" id="pass" name="pass">
+                <input type="password" class="form-control" placeholder="Contraseña" id="pass" name="pass" autocomplete="current-password">
               </div>
               
               <div class="d-flex mb-5 align-items-center">
@@ -59,9 +59,9 @@
   </div>
 
   <!--   Core JS Files   -->
-  <script src="/admin/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
-  <script src="/admin/vistas/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
-  <script src="/admin/vistas/assets/js/login.js"></script>
+  <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
+  <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="#PCV_ADMIN_BASE#/vistas/assets/js/login.js"></script>
 </body>
 
 </html>

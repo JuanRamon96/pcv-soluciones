@@ -4,10 +4,19 @@ class login
 	public function _consultar()
 	{
 		$omodelo = new m_modelo();
-		$usuario = $omodelo->esc($_POST['usuario'] ?? $_POST['correo'] ?? '');
+		// Preferir correo; fallback usuario por compatibilidad
+		$correo = trim($_POST['correo'] ?? '');
+		$usuario = trim($_POST['usuario'] ?? '');
 		$contrasena = trim($_POST['contrasena'] ?? $_POST['password'] ?? '');
 
-		$row = $omodelo->_consultar("SELECT * FROM usuarios WHERE usuario = '$usuario' AND estatus = 'activo' LIMIT 1");
+		if ($correo !== '') {
+			$loginVal = $omodelo->esc($correo);
+			$row = $omodelo->_consultar("SELECT * FROM usuarios WHERE correo = '$loginVal' AND estatus = 'activo' LIMIT 1");
+		} else {
+			$loginVal = $omodelo->esc($usuario);
+			$row = $omodelo->_consultar("SELECT * FROM usuarios WHERE usuario = '$loginVal' AND estatus = 'activo' LIMIT 1");
+		}
+
 		if ($row === 'si') {
 			echo 'Error DB: ' . mysqli_error($omodelo->link);
 			return;

@@ -6,3 +6,6 @@ uploads/productos/*
 !uploads/productos/.gitkeep
 admin/vistas/assets/.cache/
 *.log
+
+# Overrides locales (credenciales)
+includes/config.local.php

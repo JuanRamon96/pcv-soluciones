@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PCV Soluciones | Admin</title>
-    <link rel="icon" href="/admin/vistas/assets/images/logos/icon.png" type="image/x-icon">
+    <link rel="icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/icon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/plantilla/css/bootstrap.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/plantilla/css/app.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/myDataTable/css/myDataTable.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/leaflet/leaflet.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="/admin/vistas/assets/plugins/quill/quill.snow.css" >
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/css/bootstrap.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/css/app.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/myDataTable/css/myDataTable.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/leaflet/leaflet.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/quill/quill.snow.css" >
 
     
-    <link rel="stylesheet" href="/admin/vistas/assets/css/css.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/css.css">
 </head>
 <body>
     <div class="carga" id="carga">
@@ -38,7 +38,7 @@
         <div id="sidebar" class='active'>
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
-                    <img src="/admin/vistas/assets/images/logos/logo.png" width="40%">
+                    <img src="#PCV_ADMIN_BASE#/vistas/assets/images/logos/logo.png" width="40%">
                 </div>
                 <div class="sidebar-menu">
                                         <ul class="menu">
@@ -63,7 +63,7 @@
                         </li>
                         <li class="sidebar-title">Sitio</li>
                         <li class="sidebar-item">
-                            <a href="/" target="_blank" class="sidebar-link">
+                            <a href="#PCV_SITE_URL#" target="_blank" class="sidebar-link">
                                 <i class="fa-solid fa-globe" style="font-size: 20px;"></i>
                                 <span>Ver sitio</span>
                             </a>
@@ -134,7 +134,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <!--<a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
                                 <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>-->
-                                <a class="dropdown-item" href="/" target="_blank"><i data-feather="globe"></i> Ver sitio</a>
+                                <a class="dropdown-item" href="#PCV_SITE_URL#" target="_blank"><i data-feather="globe"></i> Ver sitio</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item bCerrarSe" href="javascript:void(0)"><i data-feather="log-out"></i> Cerrar Sesión</a>
                             </div>
@@ -154,23 +154,23 @@
         </div>
     </div>
 
-        <script src="/admin/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/js/feather-icons/feather.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/js/app.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/plantilla/js/main.js"></script>
-    <script src="/admin/vistas/assets/plugins/myDataTable/js/myDataTable.js"></script>
-    <script src="/admin/vistas/assets/plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/moment.min.js"></script>
-    <script src="/admin/vistas/assets/plugins/imask.js"></script>
-    <script src="/admin/vistas/assets/plugins/select2/js/select2.min.js"></script>
-    <script src="/admin/vistas/assets/js/main.js"></script>
-    <script src="/admin/vistas/assets/js/dashboard.js"></script>
-    <script src="/admin/vistas/assets/js/productos.js"></script>
-    <script src="/admin/vistas/assets/js/cotizaciones.js"></script>
+        <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/feather-icons/feather.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/app.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/main.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/myDataTable/js/myDataTable.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/moment.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/imask.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/main.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/dashboard.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/productos.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/cotizaciones.js"></script>
 </body>
 </html>

@@ -28,16 +28,27 @@ php -S 0.0.0.0:8080 router.php
 Abre:
 
 - Sitio: http://127.0.0.1:8080/
-- Admin: http://127.0.0.1:8080/admin/
+- Admin: http://127.0.0.1:8080/admin/ (con `PCV_BASE` vacío vía `config.local.php`)
 
 ## Login admin (default)
 
 | Campo | Valor |
 |-------|--------|
-| Usuario | `admin` |
+| Correo | `gerardo.solind@gmail.com` |
 | Contraseña | `admin123` |
 
 La contraseña se guarda con `password_hash` / `password_verify` en la tabla `usuarios`. **Cámbiala en producción.**
+
+## XAMPP (Windows)
+
+1. Copia el proyecto a `C:\xampp\htdocs\pcv-soluciones`
+2. Importa `sql/schema.sql` (o `sql/install_xampp.sql`) con MySQL/phpMyAdmin (`root` sin pass)
+3. Asegura `includes/config.php` con `PCV_BASE = '/pcv-soluciones'` (default) o copia `includes/config.local.php.example` → `config.local.php`
+4. Abre:
+   - Sitio: http://localhost/pcv-soluciones/
+   - Admin: http://localhost/pcv-soluciones/admin/
+
+Si sirves en la raíz de un vhost, pon `PCV_BASE` a `''` en `config.local.php`.
 
 Para regenerar el hash:
 
