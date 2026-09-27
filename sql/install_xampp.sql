@@ -145,7 +145,7 @@ INSERT INTO producto_imagenes (producto_id, archivo, orden)
 SELECT id, imagen_principal, 0 FROM productos WHERE imagen_principal IS NOT NULL;
 
 INSERT INTO usuarios (usuario, nombre, correo, password_hash) VALUES
-('admin', 'Administrador PCV', 'gerardo.solind@gmail.com', '$2y$12$bdCcaQb2BjTk9IvgxEaqkOahTm0Fu9tBYHIXa.Pmsb/wo0pjK6pXO');
+('admin', 'Administrador PCV', 'admin@gmail.com', '$2y$12$bdCcaQb2BjTk9IvgxEaqkOahTm0Fu9tBYHIXa.Pmsb/wo0pjK6pXO');
 
 INSERT INTO config (clave, valor) VALUES
 ('empresa', 'PCV Soluciones Industriales'),

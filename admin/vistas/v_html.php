@@ -3,174 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCV Soluciones | Admin</title>
-    <link rel="icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/icon.png" type="image/x-icon">
+    <title>PCV Soluciones | Admin (Spark Panel)</title>
+    <link rel="icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/icon.png?v=3.0" type="image/png">
+    <link rel="shortcut icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/favicon.ico?v=3.0" type="image/x-icon">
+    <link rel="apple-touch-icon" href="#PCV_ADMIN_BASE#/vistas/assets/images/logos/icon.png?v=3.0">
 
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/css/bootstrap.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/css/app.css">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!-- Plugins -->
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/myDataTable/css/myDataTable.css">
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/leaflet/leaflet.css">
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/quill/quill.snow.css" >
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/quill/quill.snow.css">
 
-    
-    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/css.css">
+    <!-- Spark Admin Stylesheets -->
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/spark-admin.css?v=2.6">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/spark-admin-custom.css?v=2.7">
 </head>
 <body>
+    <!-- Pantalla de carga animada -->
     <div class="carga" id="carga">
-      <div class="container" style="min-height: 100vh;">
-        <div class="row align-items-center" style="min-height: 100vh;">
-          <div class="col-12 text-center">
-            <div class="spinner-border text-primary" style="width: 8rem; height: 8rem;" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Cargando...</span>
       </div>
     </div>
 
-    <div id="app">
-        <div id="sidebar" class='active'>
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <img src="#PCV_ADMIN_BASE#/vistas/assets/images/logos/logo.png" width="40%">
-                </div>
-                <div class="sidebar-menu">
-                                        <ul class="menu">
-                        <li class="sidebar-title">Panel</li>
-                        <li class="sidebar-item active">
-                            <a href="javascript:void(0)" id="bMenuDashboard" class="sidebar-link cargarVista" carga="v_dashboard" titulo="Dashboard">
-                                <i class="fa-solid fa-gauge" style="font-size: 20px;"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="javascript:void(0)" id="bMenuProductos" class="sidebar-link cargarVista" carga="v_productos" titulo="Productos / Servicios">
-                                <i class="fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
-                                <span>Productos / Servicios</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="javascript:void(0)" id="bMenuCotizaciones" class="sidebar-link cargarVista" carga="v_cotizaciones" titulo="Cotizaciones">
-                                <i class="fa-solid fa-file-invoice" style="font-size: 20px;"></i>
-                                <span>Cotizaciones</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-title">Sitio</li>
-                        <li class="sidebar-item">
-                            <a href="#PCV_SITE_URL#" target="_blank" class="sidebar-link">
-                                <i class="fa-solid fa-globe" style="font-size: 20px;"></i>
-                                <span>Ver sitio</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="javascript:void(0)" class="sidebar-link bCerrarSe">
-                                <i class="fa-solid fa-right-from-bracket" style="font-size: 20px;"></i>
-                                <span>Salir</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    <!-- START: Spark Admin Sidebar Component -->
+    <aside class="spark-sidebar-wrapper" id="sparkSidebar">
+        <!-- Brand Logo -->
+        <a href="javascript:void(0)" class="spark-sidebar-brand cargarVista" carga="v_dashboard" titulo="Dashboard">
+            <img src="#PCV_ADMIN_BASE#/vistas/assets/images/logos/logo-white.png" alt="PCV Soluciones" class="spark-brand-logo-full" onerror="this.src='#PCV_BASE#/assets/img/logo-white.png'">
+            <img src="#PCV_ADMIN_BASE#/vistas/assets/images/logos/logo-symbol-white.png" alt="PCV" class="spark-brand-logo-collapsed" onerror="this.src='#PCV_BASE#/assets/img/logo-symbol-white.png'">
+        </a>
+
+        <!-- Navigation Menu -->
+        <div class="flex-grow-1 overflow-y-auto">
+            <!-- Group: Menu Principal -->
+            <div class="spark-sidebar-menu-section">
+                <div class="spark-sidebar-menu-title">Administración</div>
+                <ul class="spark-sidebar-menu-list">
+                    <li class="spark-sidebar-menu-item sidebar-item active">
+                        <a href="javascript:void(0)" id="bMenuDashboard" class="spark-sidebar-menu-link cargarVista" carga="v_dashboard" titulo="Dashboard General">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="spark-sidebar-menu-item sidebar-item">
+                        <a href="javascript:void(0)" id="bMenuProductos" class="spark-sidebar-menu-link cargarVista" carga="v_productos" titulo="Productos y Servicios">
+                            <i class="bi bi-boxes"></i>
+                            <span>Productos / Servicios</span>
+                        </a>
+                    </li>
+                    <li class="spark-sidebar-menu-item sidebar-item">
+                        <a href="javascript:void(0)" id="bMenuSubtipos" class="spark-sidebar-menu-link cargarVista" carga="v_subtipos" titulo="Filtros / Líneas">
+                            <i class="bi bi-sliders2"></i>
+                            <span>Filtros / Líneas</span>
+                        </a>
+                    </li>
+                    <li class="spark-sidebar-menu-item sidebar-item">
+                        <a href="javascript:void(0)" id="bMenuCotizaciones" class="spark-sidebar-menu-link cargarVista" carga="v_cotizaciones" titulo="Cotizaciones Recibidas">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Cotizaciones B2B</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Group: Accesos Rápidos -->
+            <div class="spark-sidebar-menu-section">
+                <div class="spark-sidebar-menu-title">Accesos Web</div>
+                <ul class="spark-sidebar-menu-list">
+                    <li class="spark-sidebar-menu-item">
+                        <a href="#PCV_SITE_URL#" target="_blank" class="spark-sidebar-menu-link">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                            <span>Ver Sitio Web</span>
+                            <span class="badge rounded-pill bg-white text-dark ms-auto" style="font-size: 0.65rem; font-weight: 600;">Landing</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+
+        <!-- Sidebar Profile Card (Spark Style) -->
+        <div class="spark-sidebar-profile">
+            <div class="position-relative d-inline-block">
+                <img src="#fotoCuenta#" alt="Usuario" class="spark-sidebar-profile-img" onerror="this.src='#PCV_ADMIN_BASE#/vistas/assets/images/default.jpg'">
+                <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 10px; height: 10px; transform: translate(25%, 25%);"></span>
+            </div>
+            <div class="spark-sidebar-profile-info">
+                <div class="spark-sidebar-profile-name" title="#nombreUsuarioPlain#">#nombreUsuarioPlain#</div>
+                <div class="spark-sidebar-profile-role">Administrador PCV</div>
+            </div>
+        </div>
+    </aside>
+    <!-- END: Sidebar -->
+
+    <!-- Backdrop for mobile drawer -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- START: Main Wrapper -->
+    <div class="spark-main-wrapper" id="main">
+        <!-- Top Navbar Spark Style -->
+        <header class="spark-navbar">
+            <div class="spark-nav-left d-flex align-items-center gap-2">
+                <button type="button" class="btn-desktop-toggle spark-sidebar-toggle-btn" id="btnToggleSidebar" aria-label="Ocultar / Desplegar menú" title="Ocultar / Desplegar menú">
+                    <i class="bi bi-chevron-bar-left"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ml-auto">
-                        <!--<li class="dropdown nav-icon">
-                            <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="bell"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-large">
-                                <h6 class='py-2 px-4'>Notifications</h6>
-                                <ul class="list-group rounded-none">
-                                    <li class="list-group-item border-0 align-items-start">
-                                        <div class="avatar bg-success mr-3">
-                                            <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
-                                        </div>
-                                        <div>
-                                            <h6 class='text-bold'>New Order</h6>
-                                            <p class='text-xs'>
-                                                An order made by Ahmad Saugi for product Samsung Galaxy S69
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown nav-icon mr-2">
-                            <a href="#" data-toggle="dropdown" class="nav-link  dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="d-lg-inline-block">
-                                    <i data-feather="mail"></i>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"></i> Settigs</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="log-out"></i> Log out</a>
-                            </div>
-                        </li>-->
-                        <li class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar mr-1" style="background-image: url('#fotoCuenta#'); width: 40px; height: 40px; border-radius: 100%; background-size: cover; background-position: center;">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">#nombreUsuario#</div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <!--<a class="dropdown-item" href="#"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>-->
-                                <a class="dropdown-item" href="#PCV_SITE_URL#" target="_blank"><i data-feather="globe"></i> Ver sitio</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item bCerrarSe" href="javascript:void(0)"><i data-feather="log-out"></i> Cerrar Sesión</a>
-                            </div>
-                        </li>
+            </div>
+
+            <div class="spark-nav-right">
+                <a href="#PCV_SITE_URL#" target="_blank" class="btn-spark-action d-none d-sm-inline-flex">
+                    <i class="bi bi-globe"></i>
+                    <span>Ver Landing</span>
+                </a>
+
+                <div class="dropdown">
+                    <div class="spark-user-menu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="#fotoCuenta#" alt="Avatar" class="spark-user-avatar">
+                        <span class="d-none d-md-inline fw-bold small text-dark">#nombreUsuario#</span>
+                        <i class="bi bi-chevron-down small text-muted"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 mt-2">
+                        <li><a class="dropdown-item py-2" href="#PCV_SITE_URL#" target="_blank"><i class="bi bi-globe me-2"></i> Ver Sitio Web</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item py-2 text-danger bCerrarSe" href="javascript:void(0)"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</a></li>
                     </ul>
                 </div>
-            </nav>
-            
-            <div class="main-content container-fluid">
-                <div class="page-title">
-                    <h3 class="vistaTitulo"></h3>
-                </div>
-                <section class="section" id="verVista">
-                    
-                </section>
             </div>
-        </div>
+        </header>
+
+        <!-- Dynamic AJAX View Container -->
+        <main class="spark-page-content" id="verVista">
+            <!-- Cargado vía AJAX por c_controller / main.js -->
+        </main>
     </div>
 
-        <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
+    <!-- Scripts Core -->
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-3.7.1.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/feather-icons/feather.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/app.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/chartjs/Chart.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/js/main.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/myDataTable/js/myDataTable.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/moment.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/imask.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/js/select2.min.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/main.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/dashboard.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/productos.js"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/cotizaciones.js"></script>
+    
+    <!-- Application Logic -->
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/main.js?v=2.6"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/dashboard.js?v=2.6"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/productos.js?v=2.6"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/cotizaciones.js?v=2.6"></script>
+<script src="#PCV_ADMIN_BASE#/vistas/assets/js/subtipos.js?v=2.6"></script>
 </body>
 </html>

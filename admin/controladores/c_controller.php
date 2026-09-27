@@ -5,6 +5,7 @@ require_once __DIR__ . '/c_login.php';
 require_once __DIR__ . '/c_productos.php';
 require_once __DIR__ . '/c_cotizaciones.php';
 require_once __DIR__ . '/c_dashboard.php';
+require_once __DIR__ . '/c_subtipos.php';
 
 class controller
 {
@@ -25,6 +26,7 @@ class controller
 		$nombre = htmlspecialchars($_SESSION['user_pcv']['nombre'] ?? 'Admin', ENT_QUOTES, 'UTF-8');
 		$pagina = str_replace('#fotoCuenta#', $foto, $pagina);
 		$pagina = str_replace('#nombreUsuario#', 'Hola, <span id="nombreUserP">' . $nombre . '</span>', $pagina);
+		$pagina = str_replace('#nombreUsuarioPlain#', $nombre, $pagina);
 		return $this->applyBasePaths($pagina);
 	}
 
@@ -71,7 +73,7 @@ class controller
 
 	function remplazar($pagina, $nombre)
 	{
-		if ($nombre == 'v_productos') {
+		if ($nombre == 'v_productos' || $nombre == 'v_subtipos') {
 			$omodelo = new m_modelo();
 			$opts = '<option value="">— Clasificación —</option>';
 			$row = $omodelo->_consultar('SELECT id, nombre FROM clasificaciones WHERE activo=1 ORDER BY orden');
@@ -82,16 +84,18 @@ class controller
 			}
 			$pagina = str_replace('#opcionesClasificacion#', $opts, $pagina);
 
-			$subs = '<option value="">— Subtipo —</option>';
-			$row2 = $omodelo->_consultar('SELECT id, clasificacion_id, nombre FROM subtipos WHERE activo=1 ORDER BY orden');
-			if (is_array($row2)) {
-				foreach ($row2 as $r) {
-					$subs .= '<option value="' . (int)$r['id'] . '" data-clas="' . (int)$r['clasificacion_id'] . '">' . htmlspecialchars($r['nombre'], ENT_QUOTES, 'UTF-8') . '</option>';
+			if ($nombre == 'v_productos') {
+				$subs = '<option value="">— Subtipo —</option>';
+				$row2 = $omodelo->_consultar('SELECT id, clasificacion_id, nombre FROM subtipos WHERE activo=1 ORDER BY orden');
+				if (is_array($row2)) {
+					foreach ($row2 as $r) {
+						$subs .= '<option value="' . (int)$r['id'] . '" data-clas="' . (int)$r['clasificacion_id'] . '">' . htmlspecialchars($r['nombre'], ENT_QUOTES, 'UTF-8') . '</option>';
+					}
 				}
-			}
-			$pagina = str_replace('#opcionesSubtipo#', $subs, $pagina);
+				$pagina = str_replace('#opcionesSubtipo#', $subs, $pagina);
 
-			$pagina = str_replace('#bAgregar#', '<button type="button" class="btn btn-sm btn-primary" id="bAgregarProducto">Agregar <i class="fas fa-plus"></i></button>', $pagina);
+				$pagina = str_replace('#bAgregar#', '<button type="button" class="btn-spark-primary" id="bAgregarProducto"><i class="bi bi-plus-lg me-1"></i> Agregar ítem</button>', $pagina);
+			}
 		}
 
 		return $this->applyBasePaths($pagina);

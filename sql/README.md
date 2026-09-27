@@ -15,7 +15,7 @@ También puedes importar `install_xampp.sql` (mismo contenido) desde phpMyAdmin.
 
 | Campo | Valor |
 |-------|--------|
-| Correo | `gerardo.solind@gmail.com` |
+| Correo | `admin@gmail.com` |
 | Contraseña | `admin123` |
 
 4. Sitio: `http://localhost/pcv-soluciones/`

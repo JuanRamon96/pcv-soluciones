@@ -1,0 +1,26 @@
+# PCV Soluciones — proteger docroot (XAMPP / Apache)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Carpetas sensibles
+  RewriteRule ^sql(/|$) - [F,L]
+  RewriteRule ^includes(/|$) - [F,L]
+  RewriteRule ^admin/modelo(/|$) - [F,L]
+  RewriteRule ^admin/controladores(/|$) - [F,L]
+
+  # Archivos sensibles
+  RewriteRule (^|/)\.env$ - [F,L]
+  RewriteRule (^|/)\.git(/|$) - [F,L]
+  RewriteRule \.(md|sql)$ - [F,L]
+  RewriteRule (^|/)composer\.(json|lock)$ - [F,L]
+</IfModule>
+
+# Fallback sin rewrite (Apache 2.4)
+<IfModule mod_authz_core.c>
+  <FilesMatch "(?i)\.(md|sql)$">
+    Require all denied
+  </FilesMatch>
+  <FilesMatch "(?i)^(composer\.(json|lock)|\.env)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>

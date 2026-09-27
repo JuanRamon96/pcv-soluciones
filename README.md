@@ -34,7 +34,7 @@ Abre:
 
 | Campo | Valor |
 |-------|--------|
-| Correo | `gerardo.solind@gmail.com` |
+| Correo | `admin@gmail.com` |
 | Contraseña | `admin123` |
 
 La contraseña se guarda con `password_hash` / `password_verify` en la tabla `usuarios`. **Cámbiala en producción.**
