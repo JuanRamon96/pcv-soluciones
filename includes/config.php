@@ -53,11 +53,6 @@ if (!defined('DB_PORT')) {
     define('DB_PORT', 3306);
 }
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_cache_expire(30);
-    session_start();
-}
-
 function pcv_esc($s) {
     return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 }
@@ -82,13 +77,17 @@ function pcv_img_producto($archivo) {
     if (!$archivo) {
         return pcv_asset('img/placeholders/item-1.png');
     }
-    $local = PCV_UPLOADS . '/' . $archivo;
-    if (is_file($local)) {
-        return PCV_UPLOADS_URL . '/' . rawurlencode($archivo);
+    if (is_file(PCV_ROOT . '/uploads/productos/' . $archivo)) {
+        return PCV_BASE . '/uploads/productos/' . rawurlencode($archivo);
     }
-    $ph = PCV_ROOT . '/assets/img/placeholders/' . $archivo;
-    if (is_file($ph)) {
+    if (is_file(PCV_ROOT . '/uploads/' . $archivo)) {
+        return PCV_BASE . '/uploads/' . rawurlencode($archivo);
+    }
+    if (is_file(PCV_ROOT . '/assets/img/placeholders/' . $archivo)) {
         return pcv_asset('img/placeholders/' . $archivo);
+    }
+    if (is_file(PCV_ROOT . '/assets/img/catalogo/' . $archivo)) {
+        return pcv_asset('img/catalogo/' . $archivo);
     }
     return pcv_asset('img/placeholders/item-1.png');
 }
