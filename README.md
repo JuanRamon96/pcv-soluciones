@@ -14,7 +14,7 @@ Landing pública + panel admin PHP/mysqli/jQuery al estilo Juan (soccer): MVC ca
 # 1) Crear BD e importar schema + seed
 mysql -u root -p < sql/schema.sql
 
-# 2) Ajustar credenciales en includes/config.php
+# 2) Ajustar credenciales en admin/modelo/config/config.php
 #    DB_HOST, DB_USER, DB_PASS, DB_NAME
 
 # 3) Permisos de subida
@@ -43,7 +43,7 @@ La contraseña se guarda con `password_hash` / `password_verify` en la tabla `us
 
 1. Copia el proyecto a `C:\xampp\htdocs\pcv-soluciones`
 2. Importa `sql/schema.sql` (o `sql/install_xampp.sql`) con MySQL/phpMyAdmin (`root` sin pass)
-3. Asegura `includes/config.php` con `PCV_BASE = '/pcv-soluciones'` (default) o copia `includes/config.local.php.example` → `config.local.php`
+3. Asegura `admin/modelo/config/config.php` con `PCV_BASE = '/pcv-soluciones'` (default) o copia `admin/modelo/config/config.local.php.example` → `config.local.php`
 4. Abre:
    - Sitio: http://localhost/pcv-soluciones/
    - Admin: http://localhost/pcv-soluciones/admin/
@@ -67,7 +67,8 @@ pcv-soluciones/
   assets/            # CSS/JS/img/plugins landing
   public/assets/img/logo.png
   uploads/productos/ # Imágenes subidas / placeholders
-  includes/          # config.php, db.php, header, footer
+  header.php / footer.php
+  admin/modelo/config/  # config.php, db.php, conexion.php (patron soccer)
   admin/
     index.php        # Router (metodo+accion)
     app.php          # Alias

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/admin/modelo/config/config.php';
+require_once __DIR__ . '/admin/modelo/config/db.php';
 $pcv_page = 'catalogo';
 $pcv_title = 'Catálogo | PCV Soluciones Industriales';
 $db = pcv_db();
@@ -47,10 +47,10 @@ $items = [];
 $res = $db->query($sql);
 while ($r = $res->fetch_assoc()) { $items[] = $r; }
 
-$servicios = array_values(array_filter($items, fn($i) => $i['tipo'] === 'servicio'));
-$productos = array_values(array_filter($items, fn($i) => $i['tipo'] === 'producto'));
+$servicios = array_values(array_filter($items, function ($i) { return $i['tipo'] === 'servicio'; }));
+$productos = array_values(array_filter($items, function ($i) { return $i['tipo'] === 'producto'; }));
 
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/header.php';
 
 function pcv_card($item, $large = false) {
     $isService = $item['tipo'] === 'servicio';
@@ -135,4 +135,4 @@ function pcv_card($item, $large = false) {
     </div>
   </div>
 </section>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/footer.php'; ?>

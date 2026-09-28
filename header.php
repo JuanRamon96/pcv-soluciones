@@ -1,8 +1,8 @@
 <?php
 if (!defined('PCV_ROOT')) {
-    require_once __DIR__ . '/config.php';
+    require_once __DIR__ . '/admin/modelo/config/config.php';
 }
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/admin/modelo/config/db.php';
 $pcv_page = $pcv_page ?? 'home';
 $tel1_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL1);
 $tel2_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL2);

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/admin/modelo/config/config.php';
+require_once __DIR__ . '/admin/modelo/config/db.php';
 $pcv_page = 'catalogo';
 $db = pcv_db();
 $slug = trim($_GET['slug'] ?? '');
@@ -18,10 +18,10 @@ $item = $res ? $res->fetch_assoc() : null;
 if (!$item) {
     http_response_code(404);
     $pcv_title = 'No encontrado | PCV';
-    require __DIR__ . '/includes/header.php';
+    require __DIR__ . '/header.php';
     echo '<section class="page-banner"><div class="container"><h1>No encontrado</h1></div></section>';
     echo '<div class="container py-5"><p>Producto no encontrado.</p><a class="btn btn-navy" href="'.pcv_url('catalogo.php').'">Volver al catálogo</a></div>';
-    require __DIR__ . '/includes/footer.php';
+    require __DIR__ . '/footer.php';
     exit;
 }
 $pcv_title = $item['nombre'] . ' | PCV Soluciones Industriales';
@@ -35,7 +35,7 @@ if (!$galeria && $item['imagen_principal']) {
 $main = $galeria[0] ?? $item['imagen_principal'];
 $isService = $item['tipo'] === 'servicio';
 
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/header.php';
 ?>
 <section class="page-banner">
   <div class="container">
@@ -111,4 +111,4 @@ document.querySelectorAll('.gallery-thumb').forEach(function(el){
   });
 });
 </script>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/footer.php'; ?>

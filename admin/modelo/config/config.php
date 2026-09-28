@@ -6,7 +6,7 @@
  *   - XAMPP en htdocs/pcv-soluciones → '/pcv-soluciones'
  *   - Vhost o php -S en la raíz del proyecto → ''
  *
- * Overrides: si existe includes/config.local.php, se incluye ANTES de los
+ * Overrides: si existe admin/modelo/config/config.local.php, se incluye ANTES de los
  * defaults (usa if (!defined(...)) define(...)).
  */
 date_default_timezone_set('America/Mexico_City');
@@ -16,7 +16,7 @@ if (is_file($pcv_local)) {
     require_once $pcv_local;
 }
 
-define('PCV_ROOT', dirname(__DIR__));
+define('PCV_ROOT', dirname(__DIR__, 3));
 
 // Base URL: subcarpeta XAMPP por defecto. En raíz de vhost usar '' vía config.local.php
 if (!defined('PCV_BASE')) {

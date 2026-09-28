@@ -2,8 +2,8 @@
 /**
  * Cotizar: GET = página de formulario | POST = API JSON (guarda + WhatsApp)
  */
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/admin/modelo/config/config.php';
+require_once __DIR__ . '/admin/modelo/config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json; charset=utf-8');
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pcv_page = 'cotizar';
 $pcv_title = 'Cotizar | PCV Soluciones Industriales';
 $tel1_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL1);
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/header.php';
 ?>
 <section class="page-banner">
   <div class="container">
@@ -118,4 +118,4 @@ require __DIR__ . '/includes/header.php';
     </div>
   </div>
 </section>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/footer.php'; ?>

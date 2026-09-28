@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__, 3) . '/includes/config.php';
+require_once __DIR__ . '/config.php';
 
 class conexion
 {
