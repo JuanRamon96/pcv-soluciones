@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.css">
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/quill/quill.snow.css">
+    <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/apexcharts/apexcharts.css">
 
     <!-- Spark Admin Stylesheets -->
     <link rel="stylesheet" href="#PCV_ADMIN_BASE#/vistas/assets/css/spark-admin.css?v=2.6">
@@ -71,7 +72,13 @@
                     <li class="spark-sidebar-menu-item sidebar-item">
                         <a href="javascript:void(0)" id="bMenuCotizaciones" class="spark-sidebar-menu-link cargarVista" carga="v_cotizaciones" titulo="Cotizaciones Recibidas">
                             <i class="bi bi-file-earmark-text"></i>
-                            <span>Cotizaciones B2B</span>
+                            <span>Cotizaciones</span>
+                        </a>
+                    </li>
+                    <li class="spark-sidebar-menu-item sidebar-item">
+                        <a href="javascript:void(0)" id="bMenuUsuarios" class="spark-sidebar-menu-link cargarVista" carga="v_usuarios" titulo="Usuarios del Sistema">
+                            <i class="bi bi-people-fill"></i>
+                            <span>Usuarios</span>
                         </a>
                     </li>
                 </ul>
@@ -93,14 +100,16 @@
         </div>
 
         <!-- Sidebar Profile Card (Spark Style) -->
-        <div class="spark-sidebar-profile">
+        <div class="spark-sidebar-profile cargarVista" carga="v_perfil" titulo="Mi Perfil" style="cursor: pointer;" title="Configurar mi perfil y contraseña">
             <div class="position-relative d-inline-block">
-                <img src="#fotoCuenta#" alt="Usuario" class="spark-sidebar-profile-img" onerror="this.src='#PCV_ADMIN_BASE#/vistas/assets/images/default.jpg'">
+                <div class="spark-sidebar-profile-img">
+                    <i class="bi bi-person-fill"></i>
+                </div>
                 <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 10px; height: 10px; transform: translate(25%, 25%);"></span>
             </div>
             <div class="spark-sidebar-profile-info">
                 <div class="spark-sidebar-profile-name" title="#nombreUsuarioPlain#">#nombreUsuarioPlain#</div>
-                <div class="spark-sidebar-profile-role">Administrador PCV</div>
+                <div class="spark-sidebar-profile-role">Administrador PCV <i class="bi bi-gear-fill ms-1" style="font-size: 0.7rem; opacity: 0.7;"></i></div>
             </div>
         </div>
     </aside>
@@ -127,12 +136,22 @@
 
                 <div class="dropdown">
                     <div class="spark-user-menu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="#fotoCuenta#" alt="Avatar" class="spark-user-avatar">
+                        <div class="spark-user-avatar">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
                         <span class="d-none d-md-inline fw-bold small text-dark">#nombreUsuario#</span>
                         <i class="bi bi-chevron-down small text-muted"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 mt-2">
-                        <li><a class="dropdown-item py-2" href="#PCV_SITE_URL#" target="_blank"><i class="bi bi-globe me-2"></i> Ver Sitio Web</a></li>
+                        <li>
+                            <a class="dropdown-item py-2 d-flex align-items-center gap-2 cargarVista" href="javascript:void(0)" carga="v_perfil" titulo="Mi Perfil">
+                                <i class="bi bi-person-gear text-success fs-5"></i>
+                                <div class="lh-sm">
+                                    <div class="fw-semibold">Mi Perfil</div>
+                                    <small class="text-muted" style="font-size: 0.72rem;">Usuario y contraseña</small>
+                                </div>
+                            </a>
+                        </li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item py-2 text-danger bCerrarSe" href="javascript:void(0)"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</a></li>
                     </ul>
@@ -154,12 +173,15 @@
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/fancybox/dist/jquery.fancybox.min.js"></script>
     <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/plugins/plantilla/vendors/apexcharts/apexcharts.min.js"></script>
     
     <!-- Application Logic -->
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/main.js?v=2.6"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/dashboard.js?v=2.6"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/productos.js?v=2.6"></script>
-    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/cotizaciones.js?v=2.6"></script>
-<script src="#PCV_ADMIN_BASE#/vistas/assets/js/subtipos.js?v=2.6"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/main.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/dashboard.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/productos.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/cotizaciones.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/subtipos.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/usuarios.js?v=2.8"></script>
+    <script src="#PCV_ADMIN_BASE#/vistas/assets/js/perfil.js?v=2.8"></script>
 </body>
 </html>

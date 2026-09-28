@@ -103,40 +103,19 @@ function resetFormSubtipoVista() {
 }
 
 function cargarTablaSubtiposVista() {
-	$('#tbodySubtipos').html('<tr><td colspan="5" class="text-center py-4 text-muted"><div class="spinner-border spinner-border-sm text-primary me-2"></div>Cargando filtros...</td></tr>');
-	$.post('index.php', { metodo: 'consultar', accion: 'subtipos' }, function (res) {
-		var d = typeof res === 'string' ? JSON.parse(res) : res;
-		if (!d.ok || !d.data) {
-			$('#tbodySubtipos').html('<tr><td colspan="5" class="text-center py-3 text-danger">No se pudieron cargar los filtros</td></tr>');
-			return;
-		}
-		if (d.data.length === 0) {
-			$('#tbodySubtipos').html('<tr><td colspan="5" class="text-center py-3 text-muted">No hay filtros registrados</td></tr>');
-			return;
-		}
-		var html = '';
-		d.data.forEach(function (f) {
-			var isActivo = f.activo == 1;
-			var estadoBadge = isActivo
-				? '<span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">Activo</span>'
-				: '<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1 small">Inactivo</span>';
-			var toggleBtn = isActivo
-				? '<button type="button" class="btn btn-sm btn-outline-warning bToggleSubtipoVista py-0 px-1" data-id="' + f.id + '" data-nombre="' + f.nombre + '" data-clas="' + f.clasificacion_id + '" data-orden="' + (f.orden || 0) + '" data-activo="1" title="Desactivar"><i class="bi bi-eye-slash"></i></button>'
-				: '<button type="button" class="btn btn-sm btn-outline-success bToggleSubtipoVista py-0 px-1" data-id="' + f.id + '" data-nombre="' + f.nombre + '" data-clas="' + f.clasificacion_id + '" data-orden="' + (f.orden || 0) + '" data-activo="0" title="Activar"><i class="bi bi-eye"></i></button>';
-			html += '<tr>' +
-				'<td class="ps-3 text-start fw-semibold text-dark">' + f.nombre + '</td>' +
-				'<td><span class="badge bg-light text-dark border">' + (f.clasificacion_nombre || '') + '</span></td>' +
-				'<td><span class="badge bg-info-subtle text-info-emphasis">' + (f.total_prods || 0) + '</span></td>' +
-				'<td>' + estadoBadge + '</td>' +
-				'<td>' +
-					'<div class="d-inline-flex gap-1">' +
-						'<button type="button" class="btn btn-sm btn-outline-primary bEditarSubtipoVista py-0 px-1" data-id="' + f.id + '" data-nombre="' + f.nombre + '" data-clas="' + f.clasificacion_id + '" data-orden="' + (f.orden || 0) + '" data-activo="' + f.activo + '" title="Editar"><i class="bi bi-pencil"></i></button>' +
-						toggleBtn +
-						'<button type="button" class="btn btn-sm btn-outline-danger bEliminarSubtipoVista py-0 px-1" data-id="' + f.id + '" data-nombre="' + f.nombre + '" title="Eliminar"><i class="bi bi-trash3"></i></button>' +
-					'</div>' +
-				'</td>' +
-			'</tr>';
+	if (typeof crearDataTable === 'function') {
+		crearDataTable();
+	}
+	if (typeof ajaxMyDatatable === 'function') {
+		ajaxMyDatatable({
+			table: $('#tablaSubtipos'),
+			url: 'index.php',
+			colums: ['nombre', 'clasificacion', 'productos', 'estado', 'acciones'],
+			sort: [0, 'asc'],
+			params: {
+				metodo: 'consultar',
+				accion: 'subtipos'
+			}
 		});
-		$('#tbodySubtipos').html(html);
-	});
+	}
 }

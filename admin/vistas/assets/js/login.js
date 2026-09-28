@@ -1,13 +1,12 @@
 jQuery(document).ready(function ($) {
 	$('#formLogin').validate({
 		rules: {
-			correo: { required: true, email: true },
+			correo: { required: true },
 			pass: { required: true }
 		},
 		messages: {
 			correo: {
-				required: 'El correo es requerido',
-				email: 'Ingresa un correo válido'
+				required: 'Ingresa tu correo o nombre de usuario'
 			},
 			pass: { required: 'La contraseña es requerida' }
 		},
@@ -20,36 +19,43 @@ jQuery(document).ready(function ($) {
 				type: 'POST',
 				data: data,
 				beforeSend: function () {
-					$('#mensaAV').html(`<div class="alert alert-primary alert-dismissible fade show" role="alert">
-						<i class="fas fa-info-circle"></i> <strong>Cargando . . .</strong>
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					$('#mensaAV').html(`<div class="alert alert-primary alert-dismissible fade show d-flex align-items-center" role="alert">
+						<div class="spinner-border spinner-border-sm text-primary me-2 flex-shrink-0" role="status"></div>
+						<div class="flex-grow-1"><strong>Verificando credenciales...</strong></div>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
 					</div>`);
 					$('#mensaAV').show();
 					$('#bIngresarLogin').prop('disabled', true);
-					$('#bIngresarLogin').html('Iniciar <div class="spinner-border spinner-border-sm text-light" role="status"></div>');
+					$('#bIngresarLogin').html('Iniciando... <div class="spinner-border spinner-border-sm text-light ms-1" role="status"></div>');
 				}
 			})
 			.done(function (res) {
 				if ($.trim(res) === 'Correcto') {
 					setTimeout(function () {
-						$('#mensaAV').html(`<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<i class="fas fa-check-circle"></i> <strong>Accediendo . . .</strong>
+						$('#mensaAV').html(`<div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+							<i class="bi bi-check-circle-fill text-success fs-5 me-2 flex-shrink-0"></i>
+							<div class="flex-grow-1"><strong>¡Acceso concedido!</strong> Ingresando al panel...</div>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
 						</div>`);
-						setTimeout(function () { window.location.reload(); }, 800);
-					}, 600);
+						setTimeout(function () { window.location.reload(); }, 600);
+					}, 400);
 				} else if ($.trim(res) === '0') {
 					setTimeout(function () {
-						$('#mensaAV').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<i class="fas fa-exclamation-triangle"></i> <strong>Correo o contraseña incorrectos.</strong>
+						$('#mensaAV').html(`<div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+							<i class="bi bi-exclamation-triangle-fill text-danger fs-5 me-2 flex-shrink-0"></i>
+							<div class="flex-grow-1"><strong>Credenciales incorrectas.</strong> Verifica tu correo o contraseña.</div>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
 						</div>`);
-					}, 600);
+					}, 400);
 				} else {
 					setTimeout(function () {
-						$('#mensaAV').html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<i class="fas fa-exclamation-triangle"></i> <strong>Error inesperado.</strong>
+						$('#mensaAV').html(`<div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+							<i class="bi bi-x-circle-fill text-danger fs-5 me-2 flex-shrink-0"></i>
+							<div class="flex-grow-1"><strong>Error:</strong> No se pudo conectar al servidor.</div>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
 						</div>`);
 						console.log($.trim(res));
-					}, 600);
+					}, 400);
 				}
 			})
 			.fail(function () { console.log('Error ajax'); })

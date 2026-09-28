@@ -6,6 +6,8 @@ require_once __DIR__ . '/c_productos.php';
 require_once __DIR__ . '/c_cotizaciones.php';
 require_once __DIR__ . '/c_dashboard.php';
 require_once __DIR__ . '/c_subtipos.php';
+require_once __DIR__ . '/c_perfil.php';
+require_once __DIR__ . '/c_usuarios.php';
 
 class controller
 {
@@ -94,7 +96,7 @@ class controller
 				}
 				$pagina = str_replace('#opcionesSubtipo#', $subs, $pagina);
 
-				$pagina = str_replace('#bAgregar#', '<button type="button" class="btn-spark-primary" id="bAgregarProducto"><i class="bi bi-plus-lg me-1"></i> Agregar ítem</button>', $pagina);
+				$pagina = str_replace('#bAgregar#', '<button type="button" class="btn-spark-primary" id="bAgregarProducto"><i class="bi bi-plus-lg me-1"></i> Agregar</button>', $pagina);
 			}
 		}
 

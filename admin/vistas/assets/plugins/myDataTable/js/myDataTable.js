@@ -1,5 +1,5 @@
 let typingTimer;
-const delay = 500; 
+const delay = 500;
 var arregloDataTable = new Object();
 
 function ajaxMyDatatable(data) {
@@ -78,18 +78,29 @@ function ajaxMyDatatable(data) {
 					for (var i = 0; i < resA.data.length; i++) {
 						var columnas = "";
 						for (var x = 0; x < data.colums.length; x++) {
-							if(data.table.attr('id') === 'tablaJugadores'){
-								if (x == 0){
+							if (data.table.attr('id') === 'tablaJugadores') {
+								if (x == 0) {
 									var check = '';
-									if(jugadores.includes(resA.data[i]['ID'])){
+									if (jugadores.includes(resA.data[i]['ID'])) {
 										check = 'checked';
 									}
 
-									columnas += '<td>' + resA.data[i][data.colums[x]]+ '<br><input class="form-check-input checkJugador" type="checkbox" '+check+'>' + '</td>';
-								}else{
+									columnas += '<td>' + resA.data[i][data.colums[x]] + '<br><input class="form-check-input checkJugador" type="checkbox" ' + check + '>' + '</td>';
+								} else {
 									columnas += '<td>' + resA.data[i][data.colums[x]] + '</td>';
 								}
-							}else{
+							} else if (data.table.attr('id') === 'tablaJugadoresPartido' && tipoJugador == 5) {
+								if (x == 0) {
+									var check = '';
+									if (jugadoresPartido.some(j => j.jugador == resA.data[i]['ID'])) {
+										check = 'checked';
+									}
+
+									columnas += '<td>' + resA.data[i][data.colums[x]] + '<br><input class="form-check-input checkJugadorPartido" type="checkbox" ' + check + '>' + '</td>';
+								} else {
+									columnas += '<td>' + resA.data[i][data.colums[x]] + '</td>';
+								}
+							} else {
 								columnas += '<td>' + resA.data[i][data.colums[x]] + '</td>';
 							}
 						}
@@ -213,10 +224,10 @@ function ajaxMyDatatable(data) {
 function crearDataTable() {
 
 	$(".myDataTable").each(function (index, el) {
-		if($(this).hasClass('creada')){
+		if ($(this).hasClass('creada')) {
 			return;
 		}
-		
+
 		$(this).addClass('creada');
 		var padre = $(this).parent();
 		var tabla = padre.children('table.myDataTable');
@@ -332,12 +343,12 @@ jQuery(document).ready(function ($) {
 
 		typingTimer = setTimeout(function () {
 			ajaxMyDatatable(arregloDataTable[tabla]);
-		}, delay);	
+		}, delay);
 	});
 
 	$(document).on('keydown', '.buscadorMyDataTable', function () {
-        clearTimeout(typingTimer); // Detener temporizador si vuelve a escribir
-    });
+		clearTimeout(typingTimer); // Detener temporizador si vuelve a escribir
+	});
 
 	$(document).on('click', '.paginasMyDataTable', function () {
 		var tabla = $(this).attr('tabla');

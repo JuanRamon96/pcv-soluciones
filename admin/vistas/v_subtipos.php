@@ -9,33 +9,28 @@
       <i class="bi bi-arrow-clockwise"></i>
       <span>Recargar</span>
     </button>
-    <button type="button" class="btn btn-sm btn-primary d-flex align-items-center gap-1 rounded-3 btnAbrirModalNuevoSubtipo" id="bAgregarSubtipo">
+    <button type="button" class="btn btn-spark-primary btn-sm d-flex align-items-center gap-1 rounded-3 btnAbrirModalNuevoSubtipo" id="bAgregarSubtipo">
       <i class="bi bi-plus-lg"></i>
-      <span>Nuevo filtro</span>
+      <span>Agregar</span>
     </button>
   </div>
 </div>
 
 <div class="card border-0 shadow-sm">
   <div class="card-body p-3">
-    <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0 text-center" id="tablaSubtipos" width="100%">
+    <div>
+      <table class="table table-hover align-middle mb-0 text-center myDataTable" id="tablaSubtipos" width="100%">
         <thead>
           <tr>
             <th class="text-start ps-3">Línea / Filtro</th>
             <th>División</th>
             <th style="width: 110px;">Productos</th>
             <th style="width: 120px;">Estado</th>
-            <th style="width: 140px;">Acciones</th>
+            <th style="width: 140px;" orden="No">Acciones</th>
           </tr>
         </thead>
         <tbody id="tbodySubtipos">
-          <tr>
-            <td colspan="5" class="text-center py-4 text-muted">
-              <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
-              Cargando filtros...
-            </td>
-          </tr>
+          <!-- Cargado vía AJAX por myDataTable -->
         </tbody>
       </table>
     </div>

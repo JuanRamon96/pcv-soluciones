@@ -1,0 +1,982 @@
+/* 
+========================================================================
+   SPARK ADMIN INTEGRATION & ADAPTATION FOR PCV SOLUCIONES
+   Preserves all PCV Admin IDs, classes and functionality
+   ========================================================================
+*/
+
+/* 1. Spark Design Variables Override */
+:root {
+  --brand-forest-dark: #051C12;     /* Core Spark dark green sidebar */
+  --brand-forest-medium: #072F1F;
+  --brand-forest-light: #1A3E30;
+  --brand-lime: #B4F105;            /* Signature Spark Lime accent */
+  --brand-lime-hover: #c1f824;
+  --brand-lime-translucent: rgba(180, 241, 5, 0.15);
+  
+  --bs-body-bg: #F4F6F5;
+  --card-background: #FFFFFF;
+  --border-light: #E9EFEF;
+  
+  --sidebar-width: 270px;
+  --navbar-height: 74px;
+}
+
+body {
+  background-color: var(--bs-body-bg);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: #0B130F;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 2. Loading overlay */
+.carga {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+  background: rgba(5, 28, 18, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carga .spinner-border {
+  color: var(--brand-lime) !important;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-width: 0.35rem;
+}
+
+/* 3. Spark Admin Sidebar */
+.spark-sidebar-wrapper {
+  width: var(--sidebar-width);
+  background-color: var(--brand-forest-dark);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 1.25rem 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spark-sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0.35rem 0.5rem 0.65rem;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.spark-sidebar-brand:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+.spark-brand-logo-full {
+  max-height: 68px;
+  max-width: 220px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+.spark-brand-logo-collapsed {
+  display: none !important;
+}
+
+.spark-sidebar-menu-section {
+  margin-bottom: 1.75rem;
+}
+.spark-sidebar-menu-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #879A91;
+  padding-left: 0.75rem;
+  margin-bottom: 0.65rem;
+  opacity: 0.75;
+}
+.spark-sidebar-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.spark-sidebar-menu-item {
+  margin-bottom: 0.35rem;
+}
+.spark-sidebar-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.925rem;
+  color: #879A91;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+}
+.spark-sidebar-menu-link i {
+  font-size: 1.15rem;
+  transition: color 0.2s ease;
+}
+.spark-sidebar-menu-link:hover {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.spark-sidebar-menu-item.active .spark-sidebar-menu-link,
+.spark-sidebar-menu-link.active {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.spark-sidebar-menu-item.active .spark-sidebar-menu-link::before,
+.spark-sidebar-menu-link.active::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background-color: var(--brand-lime);
+  border-radius: 0 4px 4px 0;
+}
+.spark-sidebar-menu-item.active .spark-sidebar-menu-link i,
+.spark-sidebar-menu-link.active i {
+  color: var(--brand-lime);
+}
+
+/* Sidebar Profile Footer */
+.spark-sidebar-profile {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+.spark-sidebar-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: var(--brand-forest-medium);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-lime);
+  font-size: 1.25rem;
+}
+.spark-sidebar-profile-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+.spark-sidebar-profile-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #FFFFFF;
+}
+.spark-sidebar-profile-role {
+  font-size: 0.72rem;
+  color: #879A91;
+  line-height: 1;
+}
+.spark-sidebar-logout-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(239, 68, 68, 0.12);
+  color: #F87171 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.spark-sidebar-logout-btn:hover {
+  background: #DC2626;
+  color: #FFFFFF !important;
+  border-color: #DC2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+.spark-sidebar-logout-btn:active {
+  transform: translateY(0);
+}
+
+/* 4. Main Wrapper Layout */
+.spark-main-wrapper {
+  margin-left: var(--sidebar-width);
+  padding: 1.5rem 2rem 2.5rem;
+  min-height: 100vh;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 5. Custom Spark Navbar */
+.spark-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  background-color: rgba(244, 246, 245, 0.9);
+  backdrop-filter: blur(12px);
+  margin-top: -1.5rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.spark-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-desktop-toggle,
+.spark-sidebar-toggle-btn {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 12px !important;
+  width: 42px !important;
+  height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #0B130F !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 2px 8px rgba(11, 19, 15, 0.04) !important;
+  flex-shrink: 0;
+  font-size: 1.25rem !important;
+  padding: 0 !important;
+}
+.btn-desktop-toggle:hover,
+.spark-sidebar-toggle-btn:hover {
+  background: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: var(--brand-forest-medium) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(11, 19, 15, 0.08) !important;
+}
+.btn-desktop-toggle:active,
+.spark-sidebar-toggle-btn:active {
+  transform: translateY(0) !important;
+}
+.btn-desktop-toggle i,
+.spark-sidebar-toggle-btn i {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.spark-search-bar {
+  position: relative;
+  width: 320px;
+}
+.spark-search-bar input {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.55rem 1rem 0.55rem 2.4rem;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.spark-search-bar input:focus {
+  border-color: var(--brand-forest-medium);
+  box-shadow: 0 0 0 3px var(--brand-lime-translucent);
+}
+.spark-search-bar i {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 0.9rem;
+}
+
+.spark-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-spark-action {
+  background-color: var(--brand-forest-medium);
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 2px 6px rgba(7, 47, 31, 0.15);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-spark-action:hover {
+  background-color: var(--brand-forest-dark);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px var(--brand-lime-translucent);
+}
+
+.spark-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.35rem 0.65rem;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.spark-user-menu:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.spark-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--brand-forest-medium);
+  color: #FFFFFF;
+  font-size: 1.15rem;
+}
+
+/* 6. Page Headings & Breadcrumbs */
+.spark-page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.spark-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0B130F;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.spark-page-subtitle {
+  font-size: 0.85rem;
+  color: #6C7E75;
+  margin-top: 0.15rem;
+}
+
+/* 7. Spark Cards System */
+.card {
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 16px rgba(11, 19, 15, 0.03) !important;
+  margin-bottom: 1.5rem;
+}
+.card-header {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid var(--border-light) !important;
+  padding: 1.25rem 1.5rem !important;
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+  font-weight: 700;
+}
+.card-body {
+  padding: 1.5rem !important;
+}
+
+/* Spark Metric Cards for Dashboard */
+.spark-stat-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(11, 19, 15, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.spark-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(11, 19, 15, 0.07);
+}
+.spark-stat-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.spark-stat-icon-wrap.green { background: #DCFCE7; color: #15803D; }
+.spark-stat-icon-wrap.forest { background: rgba(7, 47, 31, 0.08); color: var(--brand-forest-medium); }
+.spark-stat-icon-wrap.lime { background: #FEF9C3; color: #A16207; }
+.spark-stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0B130F;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+.spark-stat-label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #6C7E75;
+  margin: 0;
+}
+
+/* Spark Tables */
+.table {
+  color: #0B130F;
+  border-color: #F1F5F9;
+}
+.table thead th {
+  background-color: #F8FAFC !important;
+  color: #64748B !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  padding: 0.85rem 1rem !important;
+}
+.table tbody td {
+  padding: 0.85rem 1rem !important;
+  vertical-align: middle !important;
+  font-size: 0.88rem !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(248, 250, 252, 0.6);
+}
+
+/* Spark Buttons & Inputs */
+.btn-primary {
+  background-color: var(--brand-forest-medium) !important;
+  border-color: var(--brand-forest-medium) !important;
+  color: #FFFFFF !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+.btn-primary:hover {
+  background-color: var(--brand-forest-dark) !important;
+  border-color: var(--brand-forest-dark) !important;
+  box-shadow: 0 4px 12px var(--brand-lime-translucent) !important;
+}
+.form-control, .form-select {
+  border-radius: 10px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 0.9rem !important;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--brand-forest-medium) !important;
+  box-shadow: 0 0 0 3px var(--brand-lime-translucent) !important;
+}
+
+/* Bordes cuadrados limpios en Input Groups */
+.input-group,
+.input-group > .form-control,
+.input-group > .form-select,
+.input-group > .input-group-text,
+.input-group > .btn {
+  border-radius: 0 !important;
+}
+.input-group > .input-group-text {
+  background-color: #F8FAFC !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #475569 !important;
+  font-size: 0.95rem !important;
+}
+.input-group > .form-control,
+.input-group > .form-select {
+  border: 1px solid #CBD5E1 !important;
+}
+.input-group > .btn {
+  border: 1px solid #CBD5E1 !important;
+  border-left: 0 !important;
+  background-color: #F8FAFC !important;
+  color: #475569 !important;
+}
+.input-group > .btn:hover {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* Responsive & Sidebar Toggling */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(5, 28, 18, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1035;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.sidebar-backdrop.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Spark Admin Minimized Desktop Sidebar (80px Icon Mode) */
+body.sidebar-minimized {
+  --sidebar-width: 80px;
+}
+
+@media (min-width: 1025px) {
+  body.sidebar-collapsed .spark-sidebar-wrapper {
+    transform: translateX(-100%);
+  }
+  body.sidebar-collapsed .spark-main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  body.sidebar-minimized .spark-sidebar-wrapper {
+    width: 80px !important;
+    padding: 1.5rem 0.5rem 1.25rem !important;
+    align-items: center;
+  }
+  body.sidebar-minimized .spark-main-wrapper {
+    margin-left: 80px !important;
+  }
+  body.sidebar-minimized .spark-sidebar-brand {
+    justify-content: center;
+    padding-left: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  body.sidebar-minimized .spark-brand-logo-full {
+    display: none !important;
+  }
+  body.sidebar-minimized .spark-brand-logo-collapsed {
+    display: block !important;
+    max-height: 38px;
+    max-width: 38px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  body.sidebar-minimized .spark-sidebar-menu-title,
+  body.sidebar-minimized .spark-sidebar-menu-link span,
+  body.sidebar-minimized .spark-sidebar-menu-item .badge,
+  body.sidebar-minimized .spark-sidebar-profile-info {
+    display: none !important;
+  }
+  body.sidebar-minimized .spark-sidebar-menu-link {
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    width: 100%;
+  }
+  body.sidebar-minimized .spark-sidebar-menu-link i {
+    font-size: 1.35rem;
+    margin: 0;
+  }
+  body.sidebar-minimized .spark-sidebar-menu-link.active::before {
+    left: -0.5rem;
+  }
+  body.sidebar-minimized .spark-sidebar-profile {
+    padding: 0.4rem;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+  }
+  body.sidebar-minimized .spark-sidebar-profile-img {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .spark-sidebar-wrapper {
+    width: 270px !important;
+    transform: translateX(-100%);
+    box-shadow: none;
+    padding: 1.75rem 1.25rem 1.5rem !important;
+  }
+  .spark-sidebar-wrapper.show {
+    transform: translateX(0);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  }
+  .spark-main-wrapper {
+    margin-left: 0 !important;
+    padding: 1rem;
+  }
+  .spark-navbar {
+    margin-top: -1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0.75rem 1rem;
+  }
+  .spark-brand-logo-full {
+    display: block !important;
+  }
+  .spark-brand-logo-collapsed {
+    display: none !important;
+  }
+  .spark-sidebar-menu-title,
+  .spark-sidebar-menu-link span,
+  .spark-sidebar-profile-info {
+    display: block !important;
+  }
+}
+
+/* MyDataTable Spark Theme Styling */
+.numRowsMyDataTable {
+  border-radius: 8px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-weight: 600 !important;
+  color: var(--brand-forest-dark) !important;
+  padding: 0.35rem 0.65rem !important;
+}
+.buscadorMyDataTable {
+  border-radius: 0 8px 8px 0 !important;
+  border: 1px solid #CBD5E1 !important;
+  padding: 0.35rem 0.75rem !important;
+}
+.input-group-text {
+  border-radius: 8px 0 0 8px !important;
+  border-color: #CBD5E1 !important;
+  background-color: #F8FAFC !important;
+}
+.paginasMyDataTable.active {
+  background-color: var(--brand-forest-medium) !important;
+  border-color: var(--brand-forest-medium) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+.paginasMyDataTable:not(.active), .prePagButton, .nextPagButton {
+  background-color: #FFFFFF !important;
+  color: var(--brand-forest-dark) !important;
+  border-color: #CBD5E1 !important;
+}
+.paginasMyDataTable:not(.active):hover, .prePagButton:hover, .nextPagButton:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+}
+table.myDataTable thead th {
+  background-color: #F8FAF9 !important;
+  color: var(--brand-forest-dark) !important;
+  font-weight: 700 !important;
+  padding: 0.9rem 1rem !important;
+  border-bottom: 2px solid #E2E8F0 !important;
+  user-select: none;
+}
+table.myDataTable tbody tr:hover {
+  background-color: rgba(7, 47, 31, 0.02) !important;
+}
+
+/* 8. Spark Buttons & Actions Enhancement */
+.btn-spark-primary {
+  background-color: var(--brand-forest-medium);
+  color: #FFFFFF !important;
+  border: 1px solid var(--brand-forest-medium);
+  border-radius: 10px;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(7, 47, 31, 0.15);
+  text-decoration: none;
+}
+.btn-spark-primary:hover {
+  background-color: var(--brand-forest-dark);
+  border-color: var(--brand-forest-dark);
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px var(--brand-lime-translucent);
+}
+
+/* 9. Spark Table Actions */
+.table-btn-action {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  cursor: pointer;
+}
+.table-btn-action:hover {
+  background-color: var(--brand-forest-medium);
+  border-color: var(--brand-forest-medium);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(7, 47, 31, 0.2);
+}
+.table-btn-action.delete:hover {
+  background-color: #DC2626;
+  border-color: #DC2626;
+  color: #FFFFFF;
+}
+
+/* 10. Spark Badges System */
+.badge-table {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 50px;
+  line-height: 1;
+}
+.badge-table::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.badge-table.success {
+  background-color: #DCFCE7;
+  color: #15803D;
+}
+.badge-table.success::before {
+  background-color: #16A34A;
+}
+.badge-table.pending {
+  background-color: #FEF9C3;
+  color: #854D0E;
+}
+.badge-table.pending::before {
+  background-color: #CA8A04;
+}
+.badge-table.info {
+  background-color: #E0F2FE;
+  color: #0369A1;
+}
+.badge-table.info::before {
+  background-color: #0284C7;
+}
+.badge-table.failed {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+}
+.badge-table.failed::before {
+  background-color: #DC2626;
+}
+
+.badge-spark-service {
+  background-color: rgba(7, 47, 31, 0.08);
+  color: var(--brand-forest-medium);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(7, 47, 31, 0.15);
+  display: inline-flex;
+  align-items: center;
+}
+.badge-spark-product {
+  background-color: rgba(180, 241, 5, 0.18);
+  color: #3b5c00;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(180, 241, 5, 0.4);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 11. Spark Modals Styling */
+.modal-content {
+  border: 1px solid var(--border-light) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 60px rgba(5, 28, 18, 0.25) !important;
+  overflow: hidden;
+}
+.modal-header {
+  background-color: var(--brand-forest-dark) !important;
+  color: #FFFFFF !important;
+  padding: 1.25rem 1.75rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.modal-header .modal-title {
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #FFFFFF !important;
+}
+.modal-body {
+  padding: 1.75rem !important;
+  background-color: #FFFFFF;
+}
+.modal-footer {
+  padding: 1.25rem 1.75rem !important;
+  background-color: #F8FAF9 !important;
+  border-top: 1px solid var(--border-light) !important;
+}
+.form-check-input:checked {
+  background-color: var(--brand-forest-medium) !important;
+  border-color: var(--brand-forest-medium) !important;
+}
+
+/* 12. Alert Styles & Modern Dismiss Button */
+.alert {
+  border-radius: 12px !important;
+  padding: 0.85rem 1.15rem !important;
+  font-size: 0.88rem !important;
+  position: relative !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.alert-primary {
+  background-color: #EEF6FF !important;
+  color: #1E40AF !important;
+  border-color: #BFDBFE !important;
+}
+
+.alert-success {
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
+  border-color: #A7F3D0 !important;
+}
+
+.alert-danger {
+  background-color: #FEF2F2 !important;
+  color: #991B1B !important;
+  border-color: #FECACA !important;
+}
+
+.alert-warning {
+  background-color: #FFFBEB !important;
+  color: #92400E !important;
+  border-color: #FDE68A !important;
+}
+
+.alert-dismissible {
+  padding-right: 3rem !important;
+}
+
+.alert-dismissible .btn-close {
+  position: absolute !important;
+  top: 50% !important;
+  right: 0.85rem !important;
+  transform: translateY(-50%) !important;
+  padding: 0.45rem !important;
+  margin: 0 !important;
+  font-size: 0.75rem !important;
+  opacity: 0.65 !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+  background-size: 0.8em !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 6px !important;
+}
+
+.alert-dismissible .btn-close:hover {
+  opacity: 1 !important;
+  transform: translateY(-50%) scale(1.1) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.alert-dismissible .btn-close:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(26, 77, 46, 0.2) !important;
+}
+
+/* Fallback for legacy .close buttons in alerts */
+.alert .close, button.close {
+  position: absolute !important;
+  top: 50% !important;
+  right: 0.85rem !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 1.35rem !important;
+  font-weight: 300 !important;
+  line-height: 1 !important;
+  color: currentColor !important;
+  opacity: 0.65 !important;
+  cursor: pointer !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.alert .close:hover, button.close:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Filtro Rápido Segmentado (Todos / Productos / Servicios) */
+#grupoFiltroTipo {
+  background: #FFFFFF;
+  padding: 3px;
+  gap: 3px;
+}
+.btn-filtro-tipo {
+  border: none !important;
+  color: #64748B;
+  background: transparent;
+  font-size: 0.82rem;
+  padding: 0.35rem 1rem !important;
+  border-radius: 9999px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-filtro-tipo:hover {
+  color: #051C12;
+  background-color: #F1F5F9;
+}
+.btn-filtro-tipo.active {
+  background-color: #051C12 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(5, 28, 18, 0.22);
+}
+.btn-filtro-tipo.active i {
+  color: #B4F105 !important;
+}
+
+

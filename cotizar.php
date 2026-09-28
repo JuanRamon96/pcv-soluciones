@@ -21,6 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $items_json = trim($_POST['items_json'] ?? '');
+    $itemsArr = [];
+    if ($items_json !== '') {
+        $decoded = json_decode($items_json, true);
+        if (is_array($decoded)) {
+            $itemsArr = $decoded;
+            $itemsSummary = "\n\n--- Productos o servicios solicitados ---\n";
+            foreach ($itemsArr as $idx => $it) {
+                $nItem = trim($it['nombre'] ?? 'Producto o servicio');
+                $cItem = (int)($it['cantidad'] ?? 1);
+                $itemsSummary .= ($idx + 1) . ". $nItem (Cantidad: $cItem)\n";
+            }
+            $mensaje .= $itemsSummary;
+        }
+    }
+
     $folio = 'PCV-' . date('ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 6));
     $n = $db->real_escape_string($nombre);
     $e = $db->real_escape_string($empresa);
@@ -34,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO cotizaciones SET folio='$f', nombre='$n', empresa='$e', correo='$c', telefono='$t',
             mensaje='$m', producto_id=$pid, origen='$o', estatus='nueva'";
     if (!$db->query($sql)) {
-        echo json_encode(['ok' => false, 'error' => 'No se pudo guardar']);
+        echo json_encode(['ok' => false, 'error' => 'No se pudo guardar la cotización']);
         exit;
     }
 
@@ -46,12 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $texto = "Hola PCV, soy $nombre.";
+    $texto = "Hola PCV Soluciones, soy $nombre.";
     if ($empresa) $texto .= " Empresa: $empresa.";
-    $texto .= " Folio $folio.";
-    if ($prodNombre) $texto .= " Me interesa: $prodNombre.";
-    if ($mensaje) $texto .= " Detalle: $mensaje";
-    $texto .= " Tel: $telefono";
+    $texto .= " (Folio: $folio)\n";
+    if (!empty($itemsArr)) {
+        $texto .= "Solicito cotización para:\n";
+        foreach ($itemsArr as $idx => $it) {
+            $texto .= "• " . ($it['nombre'] ?? 'Producto o servicio') . " (Cant: " . ($it['cantidad'] ?? 1) . ")\n";
+        }
+    } elseif ($prodNombre) {
+        $texto .= "Me interesa cotizar: $prodNombre.\n";
+    }
+    if ($mensaje) $texto .= "Detalles: $mensaje\n";
+    $texto .= "Mi Teléfono: $telefono";
 
     $wa = 'https://wa.me/' . PCV_WHATSAPP . '?text=' . rawurlencode($texto);
     echo json_encode(['ok' => true, 'folio' => $folio, 'whatsapp' => $wa]);
