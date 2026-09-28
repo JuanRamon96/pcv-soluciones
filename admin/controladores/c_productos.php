@@ -262,9 +262,6 @@ class productos
             }
         }
 
-        if (!headers_sent()) {
-            header('Content-Type: application/json; charset=utf-8');
-        }
         echo json_encode([
             'data' => $data,
             'totales' => [
@@ -278,9 +275,6 @@ class productos
         $omodelo = new m_modelo();
         $id = (int)($_POST['id'] ?? 0);
         $row = $omodelo->_consultar("SELECT * FROM productos WHERE id = $id LIMIT 1");
-        if (!headers_sent()) {
-            header('Content-Type: application/json; charset=utf-8');
-        }
         if ($row === 'si' || $omodelo->numerofilas < 1) {
             echo json_encode(['ok' => false]);
             return;
@@ -301,6 +295,7 @@ class productos
             }
         }
 
+        header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['ok' => true, 'data' => $prod, 'galeria' => $galeria]);
     }
 
