@@ -11,20 +11,22 @@ require_once __DIR__ . '/c_usuarios.php';
 
 class controller
 {
-	/** Sustituye placeholders de base path en plantillas HTML. */
+	/** Sustituye placeholders por rutas RELATIVAS al entry admin/index.php. */
 	private function applyBasePaths($pagina)
 	{
-		$siteUrl = (PCV_BASE === '' || PCV_BASE === '/') ? '/' : rtrim(PCV_BASE, '/') . '/';
-		$pagina = str_replace('#PCV_ADMIN_BASE#', PCV_ADMIN_BASE, $pagina);
-		$pagina = str_replace('#PCV_BASE#', PCV_BASE, $pagina);
-		$pagina = str_replace('#PCV_SITE_URL#', $siteUrl, $pagina);
+		// admin/... → vistas/assets/... ; sitio público → ../
+		$pagina = str_replace('#PCV_ADMIN_BASE#/', '', $pagina);
+		$pagina = str_replace('#PCV_ADMIN_BASE#', '.', $pagina);
+		$pagina = str_replace('#PCV_BASE#/', '../', $pagina);
+		$pagina = str_replace('#PCV_BASE#', '..', $pagina);
+		$pagina = str_replace('#PCV_SITE_URL#', '../', $pagina);
 		return $pagina;
 	}
 
 	function _layouts()
 	{
 		$pagina = file_get_contents(__DIR__ . '/../vistas/v_html.php');
-		$foto = PCV_ADMIN_BASE . '/vistas/assets/images/default.jpg';
+		$foto = 'vistas/assets/images/default.jpg';
 		$nombre = htmlspecialchars($_SESSION['user_pcv']['nombre'] ?? 'Admin', ENT_QUOTES, 'UTF-8');
 		$pagina = str_replace('#fotoCuenta#', $foto, $pagina);
 		$pagina = str_replace('#nombreUsuario#', 'Hola, <span id="nombreUserP">' . $nombre . '</span>', $pagina);

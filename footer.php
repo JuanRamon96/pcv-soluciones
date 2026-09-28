@@ -124,7 +124,7 @@
 <script src="<?= pcv_asset('plugins/sweetalert2/sweetalert2.all.min.js') ?>"></script>
 <script src="<?= pcv_asset('plugins/imask/imask.min.js') ?>"></script>
 <script>
-  window.PCV_BASE_URL = '<?= PCV_BASE ?>';
+  window.PCV_BASE_URL = '<?= pcv_esc(pcv_rel_prefix()) ?>';
   window.PCV_WHATSAPP = '<?= PCV_WHATSAPP ?>';
 </script>
 <script src="<?= pcv_asset('js/site.js?v=' . filemtime(PCV_ROOT . '/assets/js/site.js')) ?>"></script>

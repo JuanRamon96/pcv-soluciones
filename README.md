@@ -14,8 +14,8 @@ Landing pública + panel admin PHP/mysqli/jQuery al estilo Juan (soccer): MVC ca
 # 1) Crear BD e importar schema + seed
 mysql -u root -p < sql/schema.sql
 
-# 2) Ajustar credenciales en admin/modelo/config/config.php
-#    DB_HOST, DB_USER, DB_PASS, DB_NAME
+# 2) Credenciales DB: defaults en config.php = XAMPP (root sin pass).
+#    Overrides: copia admin/modelo/config/config.local.php.example -> config.local.php (gitignored).
 
 # 3) Permisos de subida
 chmod -R 775 uploads/productos
@@ -28,7 +28,7 @@ php -S 0.0.0.0:8080 router.php
 Abre:
 
 - Sitio: http://127.0.0.1:8080/
-- Admin: http://127.0.0.1:8080/admin/ (con `PCV_BASE` vacío vía `config.local.php`)
+- Admin: http://127.0.0.1:8080/admin/
 
 ## Login admin (default)
 
@@ -43,12 +43,12 @@ La contraseña se guarda con `password_hash` / `password_verify` en la tabla `us
 
 1. Copia el proyecto a `C:\xampp\htdocs\pcv-soluciones`
 2. Importa `sql/schema.sql` (o `sql/install_xampp.sql`) con MySQL/phpMyAdmin (`root` sin pass)
-3. Asegura `admin/modelo/config/config.php` con `PCV_BASE = '/pcv-soluciones'` (default) o copia `admin/modelo/config/config.local.php.example` → `config.local.php`
+3. Opcional: copia `admin/modelo/config/config.local.php.example` → `config.local.php` (solo DB; defaults ya son XAMPP)
 4. Abre:
    - Sitio: http://localhost/pcv-soluciones/
    - Admin: http://localhost/pcv-soluciones/admin/
 
-Si sirves en la raíz de un vhost, pon `PCV_BASE` a `''` en `config.local.php`.
+Assets y links usan rutas **relativas al script** (`assets/css/site.css`, etc.): el mismo código funciona en la subcarpeta XAMPP y en la raíz del dominio, sin `PCV_BASE` distinto por host.
 
 Para regenerar el hash:
 
@@ -94,6 +94,22 @@ pcv-soluciones/
 2. Login POST `accion=login` → responde `Correcto` y recarga
 3. Con sesión → layout `v_html`; menú dispara `metodo=cambiar&accion=v_*`
 4. CRUD: `metodo=consultar|insertar|modificar|eliminar|detalles` + `accion=productos|cotizaciones|…`
+
+## Producción (https://pcvsoluciones.org/)
+
+`config.local.php` **no se sube con git** (está en `.gitignore`). En el hosting créalo en `admin/modelo/config/config.local.php` con las credenciales MySQL del panel (sin `PCV_BASE`; las URLs son relativas):
+
+```php
+<?php
+define('DB_HOST', '127.0.0.1');
+define('DB_USER', 'TU_USUARIO_MYSQL');
+define('DB_PASS', 'TU_PASSWORD_MYSQL');
+define('DB_NAME', 'pcv_soluciones');
+define('DB_PORT', 3306);
+```
+
+- Tras crear/actualizar el archivo, recarga el sitio y el admin.
+- SSL (candado): en Webuzo/panel, Let's Encrypt para `pcvsoluciones.org` (+ www si aplica) y forzar HTTPS. El código no instala el certificado.
 
 ## Credenciales DB locales (box de desarrollo)
 

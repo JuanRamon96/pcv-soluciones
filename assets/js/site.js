@@ -274,7 +274,7 @@
       var $btn = $(this);
       $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i> Procesando…');
 
-      $.post((window.PCV_BASE_URL || '') + '/cotizar.php', postData, function(resp) {
+      $.post((window.PCV_BASE_URL || '') + 'cotizar.php', postData, function(resp) {
         $btn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i> Solicitar Presupuesto Formal');
         var r = resp;
         try { if (typeof resp === 'string') r = JSON.parse(resp); } catch(err) {}

@@ -1,11 +1,16 @@
 <?php
 /**
- * Copia este archivo a config.local.php y ajusta.
+ * Copia este archivo a config.local.php y ajusta SOLO credenciales DB.
  * Se carga ANTES de los defaults de config.php (solo define si no existen).
  *
- * XAMPP (C:\xampp\htdocs\pcv-soluciones → http://localhost/pcv-soluciones/):
+ * IMPORTANTE:
+ * - config.local.php está en .gitignore y NO se sube con git.
+ * - Las URLs de assets/links son RELATIVAS (pcv_rel_prefix): no hace falta
+ *   PCV_BASE distinto en local vs producción.
+ * - En el SERVIDOR debe existir este archivo con user/pass/host de MySQL del hosting.
+ *
+ * --- XAMPP (C:\xampp\htdocs\pcv-soluciones) ---
  */
-define('PCV_BASE', '/pcv-soluciones');
 define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
 define('DB_PASS', '');
@@ -13,9 +18,22 @@ define('DB_NAME', 'pcv_soluciones');
 define('DB_PORT', 3306);
 
 /**
- * Desarrollo con php -S en la raíz del proyecto (sin subcarpeta):
+ * --- PRODUCCIÓN (https://pcvsoluciones.org/, document root = raíz del proyecto) ---
+ * En el servidor, crea config.local.php con las credenciales del panel MySQL:
  *
- * define('PCV_BASE', '');
+ * define('DB_HOST', '127.0.0.1');
+ * define('DB_USER', 'TU_USUARIO_MYSQL');
+ * define('DB_PASS', 'TU_PASSWORD_MYSQL');
+ * define('DB_NAME', 'pcv_soluciones');
+ * define('DB_PORT', 3306);
+ *
+ * No definas PCV_BASE: assets y links van relativos (assets/css/site.css, etc.).
+ * Sube el archivo por FTP/File Manager; no viaja por git.
+ */
+
+/**
+ * --- php -S en la raíz del proyecto ---
+ *
  * define('DB_USER', 'pcv');
  * define('DB_PASS', 'pcv_local');
  */
