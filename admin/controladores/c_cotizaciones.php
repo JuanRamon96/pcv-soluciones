@@ -79,6 +79,9 @@ class cotizaciones
             }
         }
 
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+        }
         echo json_encode([
             'data' => $data,
             'totales' => [
@@ -92,7 +95,9 @@ class cotizaciones
         $omodelo = new m_modelo();
         $id = (int)($_POST['id'] ?? 0);
         $row = $omodelo->_consultar("SELECT c.*, p.nombre AS producto_nombre FROM cotizaciones c LEFT JOIN productos p ON p.id=c.producto_id WHERE c.id=$id");
-        header('Content-Type: application/json; charset=utf-8');
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+        }
         if ($row === 'si' || $omodelo->numerofilas < 1) {
             echo json_encode(['ok' => false]);
             return;
