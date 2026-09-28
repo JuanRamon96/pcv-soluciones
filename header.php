@@ -56,7 +56,7 @@ $tel2_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL2);
 <header class="site-header">
   <nav class="navbar navbar-expand-lg py-0">
     <div class="container-fluid header-container">
-      <a class="navbar-brand d-flex align-items-center me-2 me-xl-4 py-2" href="<?= pcv_url('index.php') ?>">
+      <a class="navbar-brand d-flex align-items-center me-2 me-xl-4 py-2" href="<?= pcv_url('') ?>">
         <img src="<?= pcv_asset('img/logo-header.png?v=' . filemtime(PCV_ROOT . '/assets/img/logo-header.png')) ?>" alt="PCV Soluciones Industriales" class="brand-logo">
       </a>
       
@@ -77,7 +77,7 @@ $tel2_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL2);
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item">
-            <a class="nav-link <?= $pcv_page==='home'?'active':'' ?>" href="<?= pcv_url('index.php') ?>">Inicio</a>
+            <a class="nav-link <?= $pcv_page==='home'?'active':'' ?>" href="<?= pcv_url('') ?>">Inicio</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= $pcv_page==='catalogo'?'active':'' ?>" href="<?= pcv_url('catalogo.php') ?>" id="navDropCatalogo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,13 +121,13 @@ $tel2_fmt = preg_replace('/(\d{2})(\d{4})(\d{4})/', '$1 $2 $3', PCV_TEL2);
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= pcv_url('index.php') ?>#nosotros">Nosotros</a>
+            <a class="nav-link" href="<?= $pcv_page==='home' ? '#nosotros' : pcv_url('') . '#nosotros' ?>">Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-nowrap" href="<?= pcv_url('index.php') ?>#materiales">Materiales y Acabados</a>
+            <a class="nav-link text-nowrap" href="<?= $pcv_page==='home' ? '#materiales' : pcv_url('') . '#materiales' ?>">Materiales y Acabados</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= pcv_url('index.php') ?>#contacto">Contacto</a>
+            <a class="nav-link" href="<?= $pcv_page==='home' ? '#contacto' : pcv_url('') . '#contacto' ?>">Contacto</a>
           </li>
         </ul>
 

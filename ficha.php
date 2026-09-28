@@ -59,7 +59,7 @@ require __DIR__ . '/header.php';
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb small mb-0">
-        <li class="breadcrumb-item"><a href="<?= pcv_url('index.php') ?>" class="text-muted">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="<?= pcv_url('') ?>" class="text-muted">Inicio</a></li>
         <li class="breadcrumb-item"><a href="<?= pcv_url('catalogo.php') ?>" class="text-muted">Catálogo</a></li>
         <li class="breadcrumb-item"><a href="<?= pcv_url('catalogo.php?clasificacion=' . urlencode($item['clas_slug'])) ?>" class="text-muted"><?= pcv_esc($item['clasificacion']) ?></a></li>
         <li class="breadcrumb-item active text-navy fw-bold" aria-current="page"><?= pcv_esc($item['nombre']) ?></li>
